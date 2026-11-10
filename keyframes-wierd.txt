@@ -1,0 +1,329 @@
+moebius
+0:Cinematic, image of a black and yellow garden spider in a spider web, slightly visible tropical jungle, atmospheric haze, volumetric lighting, photorealistic, 8k resolution.
+50:images, closeup of a black, white and yellow garden spider, in a tropical jungle, exotic foliage, vibrant glowing tropical flowers, cinematic lighting, photorealistic, intricate depth.
+100:A closeup view of a  black, ant face, opisthosoma background  exotic foliage,  cinematic lighting.
+150:black, white and yellow garden spider, holding a dragon fly wrapped in spider web, cinematic lighting, photorealistic.
+200:black, white and yellow garden spider, feedind a dragon fly wrapped in spider web, to baby spiders, cinematic lighting, photorealistic.
+300:create a flower on a hill, blue skies above, white fluffy clouds, a hill with a tropical forest background. (art style Moebius:1.5)
+305:create an anthropomorphic ant crawling on a flower on a hill, blue skies above, white fluffy clouds, a hill with a tropical forest background. (art style Moebius:1.5)
+330:create an anthropomorphic ant crawling on a flower on a hill, blue skies above, white fluffy clouds, a hill with a tropical forest background. (art style Robert Crumb:1.5), line art 
+350:create a flower on a hill, blue skies above, white fluffy clouds, a hill with a tropical forest background. (art style Robert Crumb:1.5)
+400: a beautiful Latina model, Holly Hendrix, sitting on a blanket, near the waves, tropical flower in her hair,  (art style Rafał Stach:1.5)
+408:  a beautiful Latina model, Holly Hendrix, sitting on a blanket, near the waves, tropical flower in her hair,  (art style Rafał Stach:1.5)
+500: a view of the ocean waves, and tropical bamboo huts, palm trees pleasing and peaceful 
+600: a beautiful Latina model, Holly Hendrix, sitting on a blanket, near the waves, tropical flower in her hair,  (art style Norman Rockwell:1.5)
+
+
+
+0:Cinematic shot of an alien dimension, slightly visible tropical jungle, bioluminescent plants, atmospheric haze, volumetric lighting, photorealistic, 8k resolution.
+50:Ancient stone path leading into a dense alien tropical jungle, exotic foliage, vibrant glowing tropical flowers, cinematic lighting, photorealistic, intricate depth.
+100:Distant blue portal opening to an ancient alien temple, zooming in toward a glowing maze of stone tunnels containing a prominent (blue glass sphere:1.5), cinematic lighting.
+150:Zooming deep inside the (alien temple:1.6), a complex subterranean maze of stone tunnels centering on a glowing blue glass sphere, cinematic lighting, photorealistic.
+200:Extreme close-up zooming into a (glowing blue glass sphere:1.4), pulsing with strange cosmic power, reflections of ancient architecture, cinematic lighting.
+250:Inside the blue sphere portal, transitioning to a cosmic gateway opening up to a massive ancient stone door, mysterious atmosphere, cinematic lighting.
+300:Emerging into a vast subterranean cavern filled with thousands of glowing ancient artifacts, relics of a lost civilization, epic scale, cinematic lighting.
+305:Wide angle of the massive cavern interior, piles of glowing golden artifacts, ancient architecture, moody shadows, cinematic lighting, photorealistic.
+350:Deep cavern chamber revealing an enormous stone labyrinth, countless (glowing gold artifacts:1.3) illuminating the ancient walls, cinematic lighting.
+400:Inside a dark cave mine, (ghostly spectral figures:1.4) guarding the area, glowing gold artifacts scattered on the stone floor, eerie cinematic lighting.
+450:A treasure mine filled with ancient relics, a gold skull God on a central pedestal, faint (spectral beings:1.5) fading in and out, cinematic lighting.
+500:Zooming into a hidden room filled with open treasure chests, detailed close-up of a (gold skull God statue:1.4) on a stone pedestal, cinematic lighting.
+550:Sudden (crack in the cave floor:1.6) splitting open, filled with glowing molten lava, dark volcanic cave walls, intense orange heat, dramatic lighting.
+600:Dangerous fiery lava flows completely filling the cave floor, smoke and embers rising, glowing liquid magma, dark cavern, cinematic dramatic lighting.
+700:Raging river of molten red lava flowing through a massive underground cave, glowing illumination, dark volcanic stone, cinematic composition.
+720:(River of bright red fiery lava:1.4) rushing through a towering, tall cave chamber, dramatic reflections on high stone ceilings, cinematic lighting.
+760:River of red fiery lava in a tall cave chamber, a large (Goddess head stone bust:1.7) carved into the gray stone cave walls, dramatic lighting.
+770:Fiery lava river in a cavern, featuring a magnificent (Goddess head gold bust:1.7) reflecting the flames, rough gray stone cave walls, cinematic shot.
+780:Red fiery lava flowing through a large cave chamber, a (Goddess head gold bust:1.7) resting on a stone mound, the bust has (glowing ruby eyes:1.4).
+800:Transitioning back to the alien dimension, highly detailed (colorful tropical jungle background:1.5), exotic alien sky, cinematic lighting, photorealistic.
+815:Alien planet dimension, a small (stone Goddess head bust:1.5) with shiny ruby eyes nestled in a highly detailed (vibrant colorful tropical jungle:1.5), cinematic lighting.
+821:A small (stone Goddess head bust:1.5) with ruby eyes sitting on an ancient pedestal, detailed (colorful tropical jungle background:1.5), cinematic lighting.
+850:An ancient stone path leading through an alien tropical jungle toward a grand temple structure, exotic (blooming tropical flowers:1.6), cinematic lighting.
+880: (Fixed sequential numbering from 800)
+Peaceful beautiful scene, massive blooming tropical flowers, stone path winding through a lush alien jungle, overgrown vines, ancient trees, cinematic lighting.
+900:Serene landscape, large beautiful tropical flowers, stone path guiding through thick jungle foliage, hanging vines, dappled sunlight, photorealistic.
+950:Peaceful beautiful scene, stone path transitioning from lush jungle foliage to a serene ocean beach, exotic tropical flowers, soft cinematic lighting.
+980:Idyllic peaceful scene, beautiful tropical ocean beach, rustic bamboo huts, colorful tropical flowers, soft sunset cinematic lighting, photorealistic.
+
+
+0: image another dimension on an alien planet, a tropical jungle is slightly visible. Cinematic lighting, photorealistic.
+50: create a stone path leading into the alien tropical jungle, foliage and tropical flowers,  cinematic lighting, photorealistic.
+100: create a distant blue light, an entry to another dimension that contains a temple Zoom in to view inside the temple, inside is a maze of tunnels and a (blue glass sphere:1.5), cinematic lighting, photorealistic.
+150: the blue light is the entry to another dimension that contains a temple Zoom in to view inside the (temple:1.6), inside is a maze of tunnels and a blue glass sphere, cinematic lighting, photorealistic.
+200: zoom in towards the blue glass sphere, which appears to be glowing with a strange power, cinematic lighting, photorealistic.
+250: Closeup view of a blue sphere, it is a portal to another universe  to some sort of door, cinematic lighting, photorealistic.
+300: One blue sphere contains a cavern,  a vast cavern filled with ancient artifacts, cinematic lighting, photorealistic.
+305: create the cavern inside one blue sphere,  a vast cavern filled with ancient artifacts, cinematic lighting, photorealistic.
+350: Create a cavern chamber and discover, an enormous labyrinth, glowing gold artifacts, cinematic lighting, photorealistic.
+400: Create a mine inside the cave and encounter ghostly figures that seem to be guarding the area, glowing gold artifacts on the floor, cinematic lighting, photorealistic.
+450: create various treasures, artifacts, skull God on pedestal, in the mine, avoiding the (spectral beings:1.5) they appear at random points, cinematic lighting, photorealistic.
+500: zoom in on fantastic buildings, create a room filled with treasure chests, close up gold Skull God, on pedestal,  cinematic lighting, photorealistic.
+550:create a (crack in the floor:1.6), filled with lava, (create a cave:1.6)  .
+600:create dangerous lava flows, filling the cave floor.
+700:create lava flowing inside of a cave
+720:create (river of red lava:1.4) flowing inside of a tall cave chamber
+760:create  (river of red fiery lava:1.4) flowing inside of a tall cave chamber,(Goddess head stone bust:1.7), gray stone cave walls
+770:(Goddess head gold bust:1.7), gray stone cave walls
+780:create red fiery lava flowing inside of a large cave chamber,(Goddess head gold bust:1.7) on a mound of stone. Goddess bust has ruby eyes. 
+800: create another dimension on an alien planet, highly detailed (background a colorful tropical jungle:1.5), Cinematic lighting, photo-realistic.
+815: create another dimension on an alien planet,small (stone Goddess head bust:1.5) stone Goddess bust has ruby eyes, highly detailed (background a colorful tropical jungle:1.5), Cinematic lighting, photo-realistic.
+821: create another dimension on an alien planet,small (stone Goddess head bust:1.5) stone Goddess bust has ruby eyes, on a pedestal highly detailed (background a colorful tropical jungle:1.5), Cinematic lighting, photo-realistic.
+850: create a stone path leading into the alien tropical jungle, at the end of the path is a temple, foliage and (tropical flowers:1.6),  cinematic lighting, photo-realistic.
+800:create  peaceful beautiful scene, large beautiful tropical flowers,a stone path leading into the alien tropical jungle, foliage, vines, trees and tropical flowers,  cinematic lighting, photo realistic,
+900:create  peaceful beautiful scene, large beautiful tropical flowers,a stone path leading into the alien tropical jungle, foliage, vines, trees and tropical flowers,  cinematic lighting, photo realistic,
+950:create  peaceful beautiful scene, large beautiful tropical flowers,a stone path leading to an ocean beach,tropical flowers,  cinematic lighting, photo realistic,
+980:create  peaceful beautiful scene,  ocean beach, bamboo huts, tropical flowers,  cinematic lighting, photo realistic,
+
+
+
+0: image another dimension on an alien planet, a tropical jungle is slightly visible. Cinematic lighting, photorealistic.
+50: create a stone path leading into the alien tropical jungle, foliage and tropical flowers,  cinematic lighting, photorealistic.
+100: create a distant blue light, an entry to another dimension that contains a temple Zoom in to view inside the temple, inside is a maze of tunnels and a (blue glass sphere:1.5), cinematic lighting, photorealistic.
+150: the blue light is the entry to another dimension that contains a temple Zoom in to view inside the (temple:1.6), inside is a maze of tunnels and a blue glass sphere, cinematic lighting, photorealistic.
+200: zoom in towards the blue glass sphere, which appears to be glowing with a strange power, cinematic lighting, photorealistic.
+250: Closeup view of a blue sphere, it is a portal to another universe  to some sort of door, cinematic lighting, photorealistic.
+300: One blue sphere contains a cavern,  a vast cavern filled with ancient artifacts, cinematic lighting, photorealistic.
+305: create the cavern inside one blue sphere,  a vast cavern filled with ancient artifacts, cinematic lighting, photorealistic.
+350: Create a cavern chamber and discover, an enormous labyrinth, glowing gold artifacts, cinematic lighting, photorealistic.
+400: Create a mine inside the cave and encounter ghostly figures that seem to be guarding the area, glowing gold artifacts on the floor, cinematic lighting, photorealistic.
+450: create various treasures, artifacts, skull God on pedestal, in the mine, avoiding the (spectral beings:1.5) they appear at random points, cinematic lighting, photorealistic.
+500: zoom in on fantastic buildings, create a room filled with treasure chests, close up gold Skull God, on pedestal,  cinematic lighting, photorealistic.
+550:create a (crack in the floor:1.6), filled with lava, (create a cave:1.6)  .
+600:create dangerous lava flows, filling the cave floor.
+700:create lava flowing out of a cave
+760:create lava flowing out of a cave,(Goddess head stone bust:1.7)
+780:create lava flowing out of a cave,(Goddess head stone bust:1.7) on a mound of stone. Goddess bust has ruby eyes. 
+800: create another dimension on an alien planet, (stone Goddess head bust:1.5) stone Goddess bust has ruby eyes, highly detailed (background a colorful tropical jungle:1.5), Cinematic lighting, photo-realistic.
+815: create another dimension on an alien planet,small (stone Goddess head bust:1.5) stone Goddess bust has ruby eyes, highly detailed (background a colorful tropical jungle:1.5), Cinematic lighting, photo-realistic.
+821: create another dimension on an alien planet,small (stone Goddess head bust:1.5) stone Goddess bust has ruby eyes, on a pedestal highly detailed (background a colorful tropical jungle:1.5), Cinematic lighting, photo-realistic.
+850: create a stone path leading into the alien tropical jungle, foliage and (tropical flowers:1.6),  cinematic lighting, photo-realistic.
+899:create  peaceful beautiful scene, large beautiful tropical flowers,a stone path leading into the alien tropical jungle, foliage, vines, trees and tropical flowers,  cinematic lighting, photo realistic,
+
+
+0: image another dimension on an alien planet, a tropical jungle is slightly visible. Cinematic lighting, photorealistic.
+50: create a stone path leading into the alien tropical jungle, foliage and tropical flowers,  cinematic lighting, photorealistic.
+100: create a distant blue light, an entry to another dimension that contains a temple Zoom in to view inside the temple, inside is a maze of tunnels and a (blue glass sphere:1.5), cinematic lighting, photorealistic.
+150: the blue light is the entry to another dimension that contains a temple Zoom in to view inside the (temple:1.6), inside is a maze of tunnels and a blue glass sphere, cinematic lighting, photorealistic.
+200: zoom in towards the blue glass sphere, which appears to be glowing with a strange power, cinematic lighting, photorealistic.
+250: Closeup view of a blue sphere, it is a portal to another universe  to some sort of door, cinematic lighting, photorealistic.
+300: One blue sphere contains a cavern,  a vast cavern filled with ancient artifacts, cinematic lighting, photorealistic.
+305: create the cavern inside one blue sphere,  a vast cavern filled with ancient artifacts, cinematic lighting, photorealistic.
+350: Create a cavern chamber and discover, an enormous labyrinth, glowing gold artifacts, cinematic lighting, photorealistic.
+400: Create a mine inside the cave and encounter ghostly figures that seem to be guarding the area, glowing gold artifacts on the floor, cinematic lighting, photorealistic.
+450: create various treasures, artifacts, skull God on pedestal, in the mine, avoiding the (spectral beings:1.5) they appear at random points, cinematic lighting, photorealistic.
+500: zoom in on fantastic buildings, create a room filled with treasure chests, close up gold Skull God, on pedestal,  cinematic lighting, photorealistic.
+550:create a (crack in the floor:1.6), filled with lava, (create a cave:1.6)  .
+600:create dangerous lava flows, filling the cave floor.
+700:create lava flowing out of a cave
+760:create lava flowing out of a cave,(demon head stone statue:1.7)
+780:create lava flowing out of a cave,(demon head stone statue:1.7) on a mound of stone. demon statue has ruby eyes. 
+800: create another dimension on an alien planet, (stone demon head statue:1.5) stone demon statue has ruby eyes, highly detailed (background a colorful tropical jungle:1.5), Cinematic lighting, photo-realistic.
+815: create another dimension on an alien planet,small (stone demon head statue:1.5) stone demon statue has ruby eyes, highly detailed (background a colorful tropical jungle:1.5), Cinematic lighting, photo-realistic.
+821: create another dimension on an alien planet,small (stone demon head bust:1.5) stone demon bust has ruby eyes, on a pedestal highly detailed (background a colorful tropical jungle:1.5), Cinematic lighting, photo-realistic.
+850: create a stone path leading into the alien tropical jungle, foliage and (tropical flowers:1.6),  cinematic lighting, photo-realistic.
+855: create a distant blue light, an entry to another dimension that contains a temple, Zoom in to view inside the temple, inside is a maze of tunnels and a (blue glass sphere:1.5), cinematic lighting, photorealistic.
+865: blue light leads to a temple, close up view inside (temple:1.6), inside is a maze of tunnels and a blue glass sphere, cinematic lighting, photo realistic bright colors, highly detailed, brightly colored tropical flowers
+890:close up view inside (temple:1.6), inside is hanging flowers, photo realistic bright colors, highly detailed, brightly colored tropical flowers in planters
+899:close up view inside (temple:1.6), inside is hanging flowers, photo realistic bright colors, highly detailed, brightly colored tropical flowers in planters
+
+
+
+
+
+0: image another dimension on an alien planet, a tropical jungle is slightly visible. Cinematic lighting, photorealistic.
+50: create a stone path leading into the alien tropical jungle, foliage and tropical flowers,  cinematic lighting, photorealistic.
+100: create a distant blue light, an entry to another dimension that contains a temple Zoom in to view inside the temple, inside is a maze of tunnels and a (blue glass sphere:1.5), cinematic lighting, photorealistic.
+150: the blue light is the entry to another dimension that contains a temple Zoom in to view inside the (temple:1.6), inside is a maze of tunnels and a blue glass sphere, cinematic lighting, photorealistic.
+200: zoom in towards the blue glass sphere, which appears to be glowing with a strange power, cinematic lighting, photorealistic.
+250: Closeup view of a blue sphere, it is a portal to another universe  to some sort of door, cinematic lighting, photorealistic.
+300: One blue sphere contains a cavern,  a vast cavern filled with ancient artifacts, cinematic lighting, photorealistic.
+305: create the cavern inside one blue sphere,  a vast cavern filled with ancient artifacts, cinematic lighting, photorealistic.
+350: Create a cavern chamber and discover, an enormous labyrinth, glowing gold artifacts, cinematic lighting, photorealistic.
+400: Create a mine inside the cave and encounter ghostly figures that seem to be guarding the area, glowing gold artifacts on the floor, cinematic lighting, photorealistic.
+450: create various treasures, artifacts, skull God on pedestal, in the mine, avoiding the (spectral beings:1.5) they appear at random points, cinematic lighting, photorealistic.
+500: zoom in on fantastic buildings, create a room filled with treasure chests, close up gold Skull God, on pedestal,  cinematic lighting, photorealistic.
+550:create a (crack in the floor:1.6), filled with lava, (create a cave:1.6)  .
+600:create dangerous lava flows, filling the cave floor.
+700:create lava flowing out of a cave
+760:create lava flowing out of a cave,(demon head stone statue:1.7)
+780:create lava flowing out of a cave,(demon head stone statue:1.7) on a mound of stone. demon statue has ruby eyes. 
+800: create another dimension on an alien planet, (demon head stone statue:1.5) demon statue has ruby eyes, (background a colorful tropical jungle:1.5), Cinematic lighting, photorealistic.
+850: create a stone path leading into the alien tropical jungle, foliage and tropical flowers,  cinematic lighting, photorealistic.
+899:create  peaceful beautiful scene, large beautiful tropical flowers,a stone path leading into the alien tropical jungle, foliage, vines, trees and tropical flowers,  cinematic lighting, photorealistic,
+
+
+0:image another dimension on an alien planet, a tropical jungle is slightly visible. Cinematic lighting, photorealistic.
+50:create a stone path leading into the alien tropical jungle, foliage and tropical flowers,  cinematic lighting, photorealistic.
+100:create a distant blue light, an entry to another dimension that contains a temple Zoom in to view inside the temple, inside is a maze of tunnels and a (blue glass sphere:1.5), cinematic lighting, photorealistic.
+150:the blue light is the entry to another dimension that contains a temple Zoom in to view inside the (temple:1.6), inside is a maze of tunnels and a blue glass sphere, cinematic lighting, photorealistic.
+200:closeup blue glass sphere, glowing with a strange power, cinematic lighting, photorealistic.
+250:Look inside the blue sphere, it is a door, cinematic lighting, photorealistic.
+300:Enter the door, view a cavern beyond,  a vast cavern filled with ancient artifacts, cinematic lighting, photorealistic.
+350:Create a cavern and discover, an enormous cave room, cinematic lighting, photorealistic.
+400:Create a short tunnel with wood beams and wood supports, to the cavern with stalactites, stalagmites and stalagnates and encounter ghostly figures that seem to be guarding the area, cinematic lighting, photorealistic.
+450:Create a cavern chamber with stalactites, stalagmites, fire torches light the cavern, stone and rock cover the floor, avoiding the (spectral beings:1.5) they appear at random points, cinematic lighting, photorealistic.
+500:imagine inside giant cave chamber with stalactites, stalagmites, stone and rock cover the floor, fire torches and hanging railroad lanterns light the scene, ghostly figures that seem to be guarding the area, cinematic lighting, photorealistic.
+550:(wood turns stone:1.7) rocks pebble stone floor,create a cave chamber,and find one  (blue glass sphere:1.5) fire torches and hanging railroad lanterns light the walls, avoiding the (spectral beings:1.5) they appear at random points, cinematic lighting, photorealistic.
+600:create a cave chamber filled with gold artifacts, treasure chests, gold coins strewn about cinematic lighting, photorealistic.
+608:create a large cave chamber filled with gold artifacts, treasure chests, gold coins strewn about cinematic lighting, photorealistic.
+650:a close up of the golden treasure,coins and golden artifacts
+690:a close up of a bag, and backpack filled filled with the golden treasure,coins and golden artifacts
+
+
+0:image another dimension on an alien planet, a tropical jungle is slightly visible. Cinematic lighting, photorealistic.
+50:create a stone path leading into the alien tropical jungle, foliage and tropical flowers,  cinematic lighting, photorealistic.
+100:create a distant blue light, an entry to another dimension that contains a temple Zoom in to view inside the temple, inside is a maze of tunnels and a (blue glass sphere:1.5), cinematic lighting, photorealistic.
+150:the blue light is the entry to another dimension that contains a temple Zoom in to view inside the (temple:1.6), inside is a maze of tunnels and a blue glass sphere, cinematic lighting, photorealistic.
+200:closeup blue glass sphere, glowing with a strange power, cinematic lighting, photorealistic.
+250:Look inside the blue sphere, it is a door, cinematic lighting, photorealistic.
+300:Enter the door, view a cavern beyond,  a vast cavern filled with ancient artifacts, cinematic lighting, photorealistic.
+350:Create a tunnel with wood beams and wood supports, to the cavern with stalactites, stalagmites and stalagnates and encounter ghostly figures that seem to be guarding the area, cinematic lighting, photorealistic.
+400:Create a cavern and discover, an enormous cave room, cinematic lighting, photorealistic.
+450:Create a cavern with stalactites, stalagmites and stalagnates, avoiding the (spectral beings:1.5) they appear at random points, cinematic lighting, photorealistic.
+500:imagine giant cave with stalactites, stalagmites and stalagnates, ghostly figures that seem to be guarding the area, cinematic lighting, photorealistic.
+550:explore the cave, avoiding the (spectral beings:1.5) they appear at random points, cinematic lighting, photorealistic.
+600:create a cave room filled with gold artifacts, treasure chests, gold coins strewn about cinematic lighting, photorealistic.
+
+
+
+
+
+
+0: image another dimension on an alien planet, a tropical jungle is slightly visible. Cinematic lighting, photorealistic.
+50: create a stone path leading into the alien tropical jungle, foliage and tropical flowers,  cinematic lighting, photorealistic.
+100: create a distant blue light, an entry to another dimension that contains a temple Zoom in to view inside the temple, inside is a maze of tunnels and a (blue glass sphere:1.5), cinematic lighting, photorealistic.
+150: the blue light is the entry to another dimension that contains a temple Zoom in to view inside the (temple:1.6), inside is a maze of tunnels and a blue glass sphere, cinematic lighting, photorealistic.
+200: zoom in towards the blue glass sphere, which appears to be glowing with a strange power, cinematic lighting, photorealistic.
+250: Look inside the blue sphere is actually the keyhole to some sort of door, cinematic lighting, photorealistic.
+300: Enter the sphere into the cavern beyond,  a vast cavern filled with ancient artifacts, cinematic lighting, photorealistic.
+350: Create a cavern and discover, an enormous labyrinth, cinematic lighting, photorealistic.
+400: Create a maze and encounter ghostly figures that seem to be guarding the area, cinematic lighting, photorealistic.
+450: create a maze, avoiding the (spectral beings:1.5) they appear at random points, cinematic lighting, photorealistic.
+500: create a room filled with treasure chests, cinematic lighting, photorealistic.
+
+
+
+0:Dog wearing Sun Glasses a style of Dali.
+50:An image of a fish at the bottom of a well. 
+100:A small island with a rocky beaches and a mermaid on the rocks.
+150:Create a steampunk train in a snowstorm.
+200:Create a drone view of tokyo style of Herge
+250:caricature of Gangsters playing cards
+300:Nuns playing cards
+350:Cartoon image of a penguin racing a Dodo bird
+400:A dystopian castle in ruins
+450:giant squirrels gathering coconuts
+500:a monkey climbing out of a hole in a riverbank
+
+
+
+0:a psychedelic image, influence by DMT dreams, and fractals
+50:an image of space with swirling stars, galaxies an nebulea
+100:a phorealistic image of an antique car show
+150:imagine a field of old farm parts
+200:create a shopping center
+250:the inside of a plush hotel bar
+300:A Latina model drinking at a bar
+350:a beach bar with zombies at the bar drinking
+400:A steam punk model T automobile
+450:create A lizard sunning o n a rock
+500:a dystopian castle in ruines
+
+
+0:a country diner in the USA
+50:
+100:
+150:
+200:
+250:
+300:
+350:
+400:
+450:
+500:
+
+
+0:
+50:
+100:
+150:
+200:
+250:
+300:
+350:
+400:
+450:
+500:
+
+
+0:
+50:
+100:
+150:
+200:
+250:
+300:
+350:
+400:
+450:
+500:
+
+
+0:
+50:
+100:
+150:
+200:
+250:
+300:
+350:
+400:
+450:
+500:
+
+
+
+
+
+
+
+
+
+
+90: Continue navigating the labyrinth and encounter a dead end, cinematic lighting, photorealistic.
+100: Backtrack and explore another path through the maze, cinematic lighting, photorealistic.
+
+120: Open one of the chests to reveal a strange device with many buttons and dials, cinematic lighting, photorealistic.
+130: Continue exploring the maze and encounter a doorway leading out of the labyrinth, cinematic lighting, photorealistic.
+140: Move cautiously towards the doorway, avoiding any spectral beings that may be lurking nearby, cinematic lighting, photorealistic.
+150: Reach the end of the maze and exit through the doorway, cinematic lighting, photorealistic.
+160: Explore outside the labyrinth and discover an abandoned warehouse, cinematic lighting, photorealistic.
+170: Move cautiously towards the entrance of the warehouse, avoiding any spectral beings that may be lurking nearby, cinematic lighting, photorealistic.
+180: Reach the entrance to the warehouse and discover that it is in fact an enormous maze filled with abandoned rooms and offices, cinematic lighting, photorealistic.
+190: Move cautiously through the maze, avoiding any spectral beings that may be lurking nearby, cinematic lighting, photorealistic.
+200: Continue exploring the maze and discover a room filled with ancient artifacts, cinematic lighting, photorealistic.
+210: Explore further into the room and discover that it is in fact an enormous laboratory, cinematic lighting, photorealistic.
+220: Continue exploring the laboratory and encounter a strange device with many buttons and dials, cinematic lighting, photorealistic.
+230: Press one of the buttons on the device to activate it, causing a series of lights to flash and sparks to fly, cinematic lighting, photorealistic.
+240: The device begins to hum loudly, and suddenly there is a bright flash of light that engulfs everything in sight, cinematic lighting, photorealistic.
+250: Slowly the light fades away revealing a ghostly figure floating in mid-air, cinematic lighting, photorealistic.
+260: The ghost slowly floats towards you, its ethereal form gradually becoming more and more clear, cinematic lighting, photorealistic.
+270: Suddenly the ghost lashes out at you with a bolt of lightning, cinematic lighting, photorealistic.
+280: The lightning strikes you, causing a flash of pain and a surge of energy coursing through your veins, cinematic lighting, photorealistic.
+290: You feel a strange sensation as the energy flows throughout your body, slowly transforming you into something else, cinematic lighting, photorealistic.
+300: Continue exploring the laboratory and discover that it is in fact an enormous maze filled with abandoned rooms and offices, cinematic lighting, photorealistic.
+310: Move cautiously through the maze, avoiding any spectral beings that may be lurking nearby, cinematic lighting, photorealistic.
+320: Reach a dead end in the maze and discover a door leading out of the laboratory, cinematic lighting, photorealistic.
+330: Open the door and exit the maze, cinematic lighting, photorealistic.
+340: Explore outside the laboratory and discover an abandoned warehouse, cinematic lighting, photorealistic.
+350: Move cautiously towards the entrance of the warehouse, avoiding any spectral beings that may be lurking nearby, cinematic lighting, photorealistic.
+360: Reach the entrance to the warehouse and discover that it is in fact an enormous maze filled with abandoned rooms and offices, cinematic lighting, photorealistic.
+370: Move cautiously through the maze, avoiding any spectral beings that may be lurking nearby, cinematic lighting, photorealistic.
+380: Reach a dead end in the maze and discover a door leading out of the warehouse, cinematic lighting, photorealistic.
+390: Open the door and exit the maze, cinematic lighting, photorealistic.
+400: Explore outside the warehouse and discover an abandoned cityscape, cinematic lighting, photorealistic.
+410: Move cautiously towards the center of the cityscape, avoiding any spectral beings that may be lurking nearby, cinematic lighting, photorealistic.
+420: Reach a large building in the center of the cityscape and discover that it is in fact an enormous laboratory, cinematic lighting, photorealistic.
+430: Continue exploring the laboratory and encounter a strange device with many buttons and dials, cinematic lighting, photorealistic.
+440: Press one of the buttons on the device to activate it, causing a series of lights to flash and sparks to fly, cinematic lighting, photorealistic.
+450: The lightning strikes you, causing a flash of pain and a surge of energy coursing through your veins, cinematic lighting, photorealistic.
+460: You feel a strange sensation as the energy flows throughout your body, slowly transforming you into something else, cinematic lighting, photorealistic.

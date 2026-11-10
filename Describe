@@ -1,0 +1,322 @@
+#!/usr/bin/env python3
+"""
+Full pipeline:
+ image -> LLaVA description -> LLAMA story -> TTS MP3 -> append 1s silence -> MP4
+Behavior:
+ - No audio fade-out or trimming.
+ - Audio gets 1.0 second of digital silence appended (guarantees video lasts at least 1s longer).
+ - Video uses the extended audio; no -shortest; no scaling (image native size used).
+ - Uses icecream.ic for debugging.
+"""
+import os
+import shutil
+import base64
+import requests
+import subprocess
+from icecream import ic
+from PIL import Image
+from sys import argv
+
+# ---------------------
+# CONFIG
+# ---------------------
+PROJECT_DIR = "static/DESCRIBE"
+os.makedirs(PROJECT_DIR, exist_ok=True)
+
+LLAVA_API_URL = "http://localhost:11434/api/generate"
+LLAVA_MODEL_NAME = "LlaVa:latest"
+
+LLAMA_API_URL = "http://localhost:11434/api/generate"
+LLAMA_MODEL_NAME = "llama3.2:3b"
+
+TTS_API_URL = "http://localhost:8880/v1/audio/speech"
+ASSISTANT_VOICE = "af_sky"
+HEADERS = {"Content-Type": "application/json"}
+
+# Silence tail in seconds appended to TTS audio to guarantee video outlasts narration
+SILENCE_DURATION = 1.0
+
+# ffmpeg audio bitrate for created files
+AUDIO_BITRATE = "192k"
+
+# ffmpeg video settings (do not force scale; keep image native resolution)
+VIDEO_CODEC = "libx264"
+VIDEO_PRESET = "medium"
+VIDEO_CRF = "18"
+PIX_FMT = "yuv420p"
+
+# Timeouts for API calls (seconds)
+API_TIMEOUT_LARGE = 2000
+API_TIMEOUT_MEDIUM = 1000
+
+# ---------------------
+# HELPERS
+# ---------------------
+def image_to_base64(image_path):
+    with open(image_path, "rb") as f:
+        return base64.b64encode(f.read()).decode("utf-8")
+
+def describe_image(image_path, prompt=None):
+    """Call local LLaVA to describe the image and return the text."""
+    if prompt is None:
+       '''
+       prompt = "Describe this science fiction image in vivid cinematic detail."
+       '''
+       prompt = "Describe this science fiction image in vivid cinematic detail to create an img2img prompt to create a similar image"
+
+    try:
+        b64 = image_to_base64(image_path)
+        payload = {
+            "model": LLAVA_MODEL_NAME,
+            "prompt": prompt,
+            "stream": False,
+            "images": [b64]
+        }
+        ic(f"📡 Sending image to LLaVA: {os.path.basename(image_path)}")
+        r = requests.post(LLAVA_API_URL, json=payload, timeout=API_TIMEOUT_MEDIUM)
+        r.raise_for_status()
+        res = r.json()
+        ic("📥 LLaVA response keys: " + ", ".join(res.keys()))
+        return res.get("response", "").strip()
+    except Exception as e:
+        ic(f"❌ describe_image error: {e}")
+        return f"Error generating description: {e}"
+
+def generate_story_from_description(description_text, story_path):
+    """Call LLAMA to generate cinematic prose and save to story_path."""
+    prompt = f"""
+You are a vivid, poetic science-fiction narrator.
+Write ONLY a continuous story in cinematic prose.
+Do NOT explain what you are doing.
+Do NOT introduce yourself as a narrator or AI.
+Do NOT use stage directions, brackets, or meta-commentary.
+The output must read like the voiceover of a film.
+
+Concept to narrate:
+
+{description_text.strip()}
+"""
+    payload = {
+        "model": LLAMA_MODEL_NAME,
+        "prompt": prompt,
+        "max_tokens": 2048,
+        "temperature": 0.9,
+        "top_p": 0.95,
+        "stream": False
+    }
+    try:
+        ic("📡 Sending prompt to LLAMA for story generation")
+        r = requests.post(LLAMA_API_URL, json=payload, timeout=API_TIMEOUT_LARGE)
+        r.raise_for_status()
+        story = r.json().get("response", "").strip()
+    except Exception as e:
+        ic(f"❌ generate_story error: {e}")
+        story = f"API error: {e}"
+
+    # Ensure folder exists and write
+    with open(story_path, "w", encoding="utf-8") as fh:
+        fh.write(story)
+    ic(f"✍️ Story written to {story}")
+    return story
+
+def generate_tts_full_text(story_file_path, out_mp3_path):
+    """Generate TTS audio from story_file_path and write to out_mp3_path."""
+    try:
+        with open(story_file_path, "r", encoding="utf-8") as f:
+            raw = f.read()
+        # preserve sentence boundaries; convert double-newlines to short pause
+        text = raw.replace("\r\n", "\n").replace("\n\n", ", ").replace("\n", " ").strip()
+    except Exception as e:
+        ic(f"❌ Failed to read story: {e}")
+        return False
+
+    payload = {"input": text, "voice": ASSISTANT_VOICE}
+    try:
+        ic(f"📡 Sending story to TTS API ({TTS_API_URL})")
+        r = requests.post(TTS_API_URL, json=payload, headers=HEADERS, timeout=API_TIMEOUT_LARGE)
+        if r.status_code == 200:
+            with open(out_mp3_path, "wb") as fh:
+                fh.write(r.content)
+            ic(f"🔊 TTS audio saved: {out_mp3_path} ({os.path.getsize(out_mp3_path)} bytes)")
+            return True
+        else:
+            ic(f"❌ TTS API error {r.status_code}: {r.text}")
+            return False
+    except Exception as e:
+        ic(f"❌ TTS request failed: {e}")
+        return False
+
+def append_silence(audio_path, silence_duration=SILENCE_DURATION):
+    """
+    Append silence to audio using ffmpeg and return path to extended audio.
+    Extended file will be <base>_ext.m4a
+    If extension fails, returns original audio_path.
+    """
+    base, _ = os.path.splitext(audio_path)
+    extended = f"{base}_ext.m4a"
+    try:
+        cmd = [
+            "ffmpeg", "-y",
+            "-i", audio_path,
+            "-af", f"apad=pad_dur={silence_duration}",
+            "-c:a", "aac",
+            "-b:a", AUDIO_BITRATE,
+            extended
+        ]
+        ic(f"🔇 Appending {silence_duration} second(s) of silence to audio")
+        ic("    " + " ".join(cmd))
+        subprocess.run(cmd, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+        ic(f"✅ Extended audio created: {extended}")
+        return extended
+    except subprocess.CalledProcessError as e:
+        ic(f"❌ ffmpeg failed to append silence: {e.stderr}")
+        # On failure, fall back to original audio
+        return audio_path
+    except Exception as e:
+        ic(f"❌ append_silence unexpected error: {e}")
+        return audio_path
+
+def get_audio_duration_seconds(audio_path):
+    """Return float duration from ffprobe; 0.0 on failure."""
+    try:
+        out = subprocess.check_output([
+            "ffprobe", "-v", "error",
+            "-show_entries", "format=duration",
+            "-of", "default=noprint_wrappers=1:nokey=1",
+            audio_path
+        ], stderr=subprocess.STDOUT).decode().strip()
+        duration = float(out)
+        ic(f"⏱ Audio duration: {duration:.3f}s for {os.path.basename(audio_path)}")
+        return duration
+    except Exception as e:
+        ic(f"❌ ffprobe failed: {e}")
+        return 0.0
+
+def create_video_with_audio(image_path, audio_path, output_mp4_path):
+    """
+    Create MP4 that uses the provided audio file.
+    The audio should already include the silence tail (append_silence).
+    This function will not scale the image (keeps native resolution).
+    """
+    duration = get_audio_duration_seconds(audio_path)
+    if duration <= 0:
+        ic("❌ Invalid or zero audio duration, aborting video creation.")
+        return False
+
+    # Remove existing output if present to avoid partial files
+    if os.path.exists(output_mp4_path):
+        try:
+            os.remove(output_mp4_path)
+        except Exception as e:
+            ic(f"⚠️ Could not remove existing output: {e}")
+
+    # Build ffmpeg command. We set -t to audio duration (which includes silence tail)
+    cmd = [
+        "ffmpeg", "-y",
+        "-loop", "1",
+        "-i", image_path,
+        "-i", audio_path,
+        "-t", f"{duration:.3f}",
+        "-c:v", VIDEO_CODEC,
+        "-crf", VIDEO_CRF,
+        "-preset", VIDEO_PRESET,
+        "-pix_fmt", PIX_FMT,
+        "-c:a", "aac",
+        "-b:a", AUDIO_BITRATE,
+        output_mp4_path
+    ]
+
+    ic("▶️ Running ffmpeg for final mux:")
+    ic("    " + " ".join(cmd))
+    try:
+        subprocess.run(cmd, check=True)
+        ic(f"✅ Video created: {output_mp4_path}")
+        return True
+    except subprocess.CalledProcessError as e:
+        ic(f"❌ ffmpeg returned non-zero exit: {e}")
+        return False
+    except Exception as e:
+        ic(f"❌ Unexpected error running ffmpeg: {e}")
+        return False
+
+# ---------------------
+# MAIN PROCESS FOR ONE IMAGE
+# ---------------------
+def process_single_image(image_path):
+    """
+    Full pipeline using a single input image path:
+      - copy image into PROJECT_DIR
+      - describe with LLaVA
+      - generate story with LLAMA
+      - generate TTS MP3
+      - append 1s silence to MP3
+      - create MP4 using extended audio
+    """
+    if not os.path.isfile(image_path):
+        ic(f"❌ Input image missing: {image_path}")
+        return None
+
+    # copy image into project dir (keeps consistent paths)
+    filename = os.path.basename(image_path)
+    base_name, ext = os.path.splitext(filename)
+
+    dest_image_path = os.path.join(PROJECT_DIR, filename)
+    try:
+        if not os.path.exists(dest_image_path):
+            shutil.copy(image_path, dest_image_path)
+            ic(f"📁 Copied image to project dir: {dest_image_path}")
+        else:
+            ic(f"📁 Image already in project dir: {dest_image_path}")
+    except Exception as e:
+        ic(f"❌ Failed to copy image: {e}")
+        return None
+
+    # filenames for artifacts
+    description_file = os.path.join(PROJECT_DIR, f"{base_name}_.txt")
+    story_file = os.path.join(PROJECT_DIR, f"{base_name}story.txt")
+    tts_mp3 = os.path.join(PROJECT_DIR, f"{base_name}story.mp3")
+    output_mp4 = os.path.join(PROJECT_DIR, f"{base_name}story.mp4")
+
+    # Describe image
+    description_text = describe_image(dest_image_path)
+    try:
+        with open(description_file, "w", encoding="utf-8") as fh:
+            fh.write(description_text)
+        ic(f"📝 Description saved: {description_text}")
+    except Exception as e:
+        ic(f"❌ Failed to save description: {e}")
+
+    # Generate story
+    story_text = generate_story_from_description(description_text, story_file)
+
+    # Generate TTS audio
+    ok = generate_tts_full_text(story_file, tts_mp3)
+    if not ok:
+        ic("❌ TTS generation failed, aborting pipeline.")
+        return None
+
+    # Append 1s silence to audio (creates extended file)
+    extended_audio_path = append_silence(tts_mp3, silence_duration=SILENCE_DURATION)
+
+    # Create final mp4 using extended audio
+    success = create_video_with_audio(dest_image_path, extended_audio_path, output_mp4)
+    if success:
+        ic(f"🎉 Completed: {output_mp4}")
+        return output_mp4
+    else:
+        ic("❌ Video creation failed.")
+        return None
+
+# ---------------------
+# ENTRY POINT
+# ---------------------
+if __name__ == "__main__":
+    if len(argv) < 2:
+        print("Usage: python3 makevideo.py /path/to/image.jpg")
+    else:
+        image_file_path = argv[1]
+        result = process_single_image(image_file_path)
+        if result:
+            ic(f"✅ Pipeline finished, output: {result}")
+        else:
+            ic("❌ Pipeline failed.")

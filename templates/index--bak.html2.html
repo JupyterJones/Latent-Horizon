@@ -1,0 +1,2073 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Latent Horizon | AI Infinite Pan Studio</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-color: #080812;
+            --bg-card: rgba(18, 18, 35, 0.75);
+            --bg-card-hover: rgba(26, 26, 50, 0.9);
+            --accent-primary: #00f0ff;
+            --accent-secondary: #b800ff;
+            --accent-gradient: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
+            --text-main: #e2e8f0;
+            --text-muted: #8a8fba;
+            --border-color: rgba(255, 255, 255, 0.12);
+            --border-focus: rgba(0, 240, 255, 0.6);
+            --success-color: #00ff66;
+            --error-color: #ff3366;
+            --shadow-glow: 0 0 20px rgba(0, 240, 255, 0.35);
+            --transition-speed: 0.3s;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 15% 20%, rgba(184, 0, 255, 0.2) 0%, transparent 55%),
+                radial-gradient(circle at 85% 80%, rgba(0, 240, 255, 0.22) 0%, transparent 55%);
+        }
+
+        .btn-update-params {
+            background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
+            color: #000;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            font-size: 15px;
+            padding: 14px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: var(--shadow-glow);
+            transition: all var(--transition-speed);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-update-params:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 25px rgba(0, 240, 255, 0.5);
+            filter: brightness(1.1);
+        }
+
+        .btn-update-params.updated {
+            background: #00ff66 !important;
+            color: #000 !important;
+            box-shadow: 0 0 25px rgba(0, 255, 102, 0.8) !important;
+        }
+
+        .btn-new-gen {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid var(--border-color);
+            color: #fff;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 600;
+            font-size: 15px;
+            padding: 14px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all var(--transition-speed);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-new-gen:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.02);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        header {
+            padding: 20px 40px;
+            border-bottom: 1px solid var(--border-color);
+            background: rgba(8, 8, 15, 0.8);
+            backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-icon {
+            width: 32px;
+            height: 32px;
+            background: var(--accent-gradient);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            color: #000;
+            font-family: 'Outfit', sans-serif;
+            font-size: 18px;
+            box-shadow: var(--shadow-glow);
+        }
+
+        .logo-text {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            font-size: 22px;
+            letter-spacing: 0.5px;
+            background: linear-gradient(to right, #fff, var(--text-muted));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .signature {
+            font-size: 12px;
+            color: var(--text-muted);
+            font-family: 'Outfit', sans-serif;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .signature span {
+            color: var(--accent-primary);
+            font-weight: 600;
+            text-shadow: 0 0 8px rgba(0, 240, 255, 0.3);
+        }
+
+        main {
+            flex: 1;
+            display: grid;
+            grid-template-columns: 430px 1fr;
+            height: calc(100vh - 73px);
+            overflow: hidden;
+        }
+
+        /* Config Sidebar */
+        .sidebar {
+            padding: 24px;
+            border-right: 1px solid var(--border-color);
+            overflow-y: auto;
+            background: rgba(10, 10, 18, 0.3);
+        }
+
+        .section-title {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 600;
+            font-size: 16px;
+            color: #fff;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .section-title::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border-color);
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-group.row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        label {
+            display: block;
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+            font-weight: 500;
+            letter-spacing: 0.3px;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        textarea,
+        select {
+            width: 100%;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 10px 12px;
+            color: #fff;
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            transition: all var(--transition-speed);
+        }
+
+        input[type="text"]:focus,
+        input[type="number"]:focus,
+        textarea:focus,
+        select:focus {
+            outline: none;
+            border-color: var(--border-focus);
+            background: rgba(255, 255, 255, 0.05);
+            box-shadow: 0 0 8px rgba(0, 240, 255, 0.1);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 60px;
+        }
+
+        /* Drag and Drop Zone */
+        .upload-container {
+            border: 1px dashed var(--border-color);
+            border-radius: 8px;
+            padding: 16px;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.01);
+            cursor: pointer;
+            transition: all var(--transition-speed);
+            margin-bottom: 12px;
+        }
+
+        .upload-container:hover {
+            border-color: var(--accent-primary);
+            background: rgba(0, 240, 255, 0.02);
+        }
+
+        .upload-icon {
+            font-size: 24px;
+            margin-bottom: 6px;
+            color: var(--accent-primary);
+        }
+
+        .upload-text {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .upload-text span {
+            color: #fff;
+            font-weight: 500;
+        }
+
+        #image-preview-container {
+            display: none;
+            position: relative;
+            margin-top: 10px;
+            border-radius: 6px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            max-height: 150px;
+        }
+
+        #image-preview {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .remove-preview-btn {
+            position: absolute;
+            top: 6px;
+            right: 6px;
+            background: rgba(0,0,0,0.6);
+            color: #fff;
+            border: none;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .checkbox-container input {
+            cursor: pointer;
+        }
+
+        .checkbox-label {
+            font-size: 13px;
+            color: var(--text-main);
+        }
+
+        .btn-randomize {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            border-radius: 6px;
+            padding: 6px 12px;
+            font-size: 11px;
+            cursor: pointer;
+            margin-top: 6px;
+            transition: all var(--transition-speed);
+        }
+
+        .btn-randomize:hover {
+            background: rgba(255,255,255,0.1);
+        }
+
+        /* Action Buttons */
+        .action-button-container {
+            margin-top: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .btn-generate {
+            background: var(--accent-gradient);
+            color: #000;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            font-size: 15px;
+            padding: 14px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: var(--shadow-glow);
+            transition: all var(--transition-speed);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-generate:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 25px rgba(0, 240, 255, 0.4);
+            filter: brightness(1.1);
+        }
+
+        .btn-cancel {
+            background: transparent;
+            border: 1px solid var(--error-color);
+            color: var(--error-color);
+            font-family: 'Outfit', sans-serif;
+            font-weight: 600;
+            font-size: 14px;
+            padding: 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all var(--transition-speed);
+            display: none;
+        }
+
+        .btn-cancel:hover {
+            background: rgba(255, 51, 102, 0.08);
+        }
+
+        /* Main Workspace Display */
+        .workspace {
+            padding: 30px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        /* Tabs Header */
+        .tabs-header {
+            display: flex;
+            gap: 12px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 8px;
+        }
+
+        .tab-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            font-family: 'Outfit', sans-serif;
+            font-weight: 600;
+            font-size: 15px;
+            padding: 8px 16px;
+            cursor: pointer;
+            position: relative;
+            transition: all var(--transition-speed);
+        }
+
+        .tab-btn:hover {
+            color: #fff;
+        }
+
+        .tab-btn.active {
+            color: var(--accent-primary);
+        }
+
+        .tab-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: -9px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--accent-primary);
+            box-shadow: 0 0 8px var(--accent-primary);
+        }
+
+        .tab-content {
+            display: none;
+            flex: 1;
+            flex-direction: column;
+            min-height: 0;
+            margin-bottom: 24px;
+        }
+
+        .tab-content.active {
+            display: flex;
+        }
+
+        /* Glass Panel */
+        .glass-panel {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+            backdrop-filter: blur(12px);
+        }
+
+        /* Live Preview tab styling */
+        .preview-grid {
+            display: grid;
+            grid-template-columns: 1fr 320px;
+            gap: 24px;
+            flex: 1;
+            min-height: 400px;
+            max-height: 600px;
+        }
+
+        .visual-preview {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            position: relative;
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+            padding: 10px 20px 20px 20px;
+        }
+
+        .visual-preview img {
+            max-width: 100%;
+            max-height: 450px;
+            object-fit: contain;
+            border-radius: 6px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .preview-placeholder {
+            text-align: center;
+            color: var(--text-muted);
+        }
+
+        .preview-placeholder svg {
+            width: 48px;
+            height: 48px;
+            margin-bottom: 12px;
+            color: var(--border-color);
+        }
+
+        /* Logs Console */
+        .console-logs {
+            background: #030307;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 16px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 12px;
+            color: #00ff66;
+            overflow-y: auto;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            max-height: 450px;
+        }
+
+        .console-logs div {
+            white-space: pre-wrap;
+            word-break: break-all;
+        }
+
+        .log-error { color: var(--error-color); }
+        .log-success { color: var(--success-color); }
+        .log-info { color: var(--accent-primary); }
+
+        /* Progress Card */
+        .progress-card {
+            margin-top: 20px;
+        }
+
+        .progress-bar-container {
+            width: 100%;
+            height: 8px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 12px;
+            position: relative;
+        }
+
+        .progress-bar-fill {
+            width: 0%;
+            height: 100%;
+            background: var(--accent-gradient);
+            box-shadow: 0 0 10px var(--accent-primary);
+            transition: width 0.3s ease;
+        }
+
+        .progress-stats {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .progress-status-text {
+            color: #fff;
+            font-weight: 500;
+        }
+
+        /* Video Tab */
+        .video-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            justify-content: center;
+            min-height: 500px;
+        }
+
+        video {
+            max-width: 100%;
+            max-height: 450px;
+            border-radius: 10px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.6);
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-download {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--border-color);
+            color: #fff;
+            padding: 10px 24px;
+            border-radius: 8px;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition-speed);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-download:hover {
+            background: var(--accent-gradient);
+            color: #000;
+            border-color: transparent;
+            box-shadow: var(--shadow-glow);
+        }
+
+        /* History Table */
+        .history-table-container {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            font-size: 13px;
+        }
+
+        th, td {
+            padding: 14px 16px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        th {
+            font-family: 'Outfit', sans-serif;
+            color: #fff;
+            font-weight: 600;
+            background: rgba(255,255,255,0.01);
+        }
+
+        tr:hover td {
+            background: rgba(255,255,255,0.02);
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .status-success { background: rgba(0,255,102,0.1); color: var(--success-color); }
+        .status-failed { background: rgba(255,51,102,0.1); color: var(--error-color); }
+        .status-running { background: rgba(0,240,255,0.1); color: var(--accent-primary); }
+        .status-pending { background: rgba(255,255,255,0.05); color: var(--text-muted); }
+        .status-cancelled { background: rgba(255,255,255,0.1); color: var(--text-muted); }
+        .status-incomplete { background: rgba(255,200,0,0.1); color: #ffcc00; }
+
+        .btn-view-run {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            padding: 4px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 11px;
+            transition: all var(--transition-speed);
+        }
+
+        .btn-view-run:hover {
+            border-color: var(--accent-primary);
+            color: var(--accent-primary);
+        }
+
+        .btn-resume-run {
+            background: transparent;
+            border: 1px solid rgba(255, 200, 0, 0.4);
+            color: #ffcc00;
+            padding: 4px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 11px;
+            transition: all var(--transition-speed);
+            margin-left: 4px;
+        }
+
+        .btn-resume-run:hover {
+            border-color: #ffcc00;
+            background: rgba(255, 200, 0, 0.1);
+        }
+
+        .btn-delete-run {
+            background: transparent;
+            border: 1px solid rgba(255, 51, 102, 0.4);
+            color: var(--error-color);
+            padding: 4px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 11px;
+            transition: all var(--transition-speed);
+            margin-left: 4px;
+        }
+
+        .btn-delete-run:hover {
+            border-color: var(--error-color);
+            background: rgba(255, 51, 102, 0.1);
+        }
+
+        .pulse-loader {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--accent-primary);
+            box-shadow: 0 0 10px var(--accent-primary);
+            animation: pulse 1.5s infinite ease-in-out;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(0.6); opacity: 0.4; }
+            50% { transform: scale(1.2); opacity: 1; }
+        }
+
+        /* Collapsible items details */
+        .collapsible-header {
+            cursor: pointer;
+            padding: 8px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .collapsible-content {
+            display: block;
+            margin-top: 10px;
+            border-left: 2px solid var(--border-color);
+            padding-left: 14px;
+        }
+
+        .collapsible-content.collapsed {
+            display: none;
+        }
+
+        .collapsible-toggle-icon::before {
+            content: '▼';
+            font-size: 9px;
+            color: var(--text-muted);
+        }
+
+        .collapsible-toggle-icon.collapsed::before {
+            content: '▶';
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo-container">
+            <div class="logo-icon">H</div>
+            <div class="logo-text">LATENT HORIZON</div>
+        </div>
+        <div class="signature">Crafted by <span>Antigravity</span></div>
+    </header>
+
+    <main>
+        <!-- Sidebar controls -->
+        <div class="sidebar">
+            <form id="gen-form" enctype="multipart/form-data">
+                
+                <div class="section-title">Image Input</div>
+                <div class="form-group">
+                    <label>Drag & Drop or Select Image</label>
+                    <div class="upload-container" id="upload-zone">
+                        <div class="upload-icon">✦</div>
+                        <div class="upload-text"><span>Click to upload</span> or drag image file</div>
+                        <input type="file" id="input_image_file" name="input_image_file" accept="image/*" style="display: none;">
+                    </div>
+                    <div id="image-preview-container">
+                        <img id="image-preview" src="" alt="preview">
+                        <button type="button" class="remove-preview-btn" id="btn-remove-preview">×</button>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="input_image_path">Or Specify Local Image Path</label>
+                    <input type="text" id="input_image_path" name="input_image_path" placeholder="/absolute/path/to/image.png" value="Untitled01.jpg">
+                </div>
+
+                <div class="section-title">Prompts</div>
+                <div class="form-group">
+                    <label for="prompt">Positive Prompt (Supports Prompt Traveling e.g. <span style="color: var(--accent-primary);">0: forest \n 30: city</span>)</label>
+                    <textarea id="prompt" name="prompt" placeholder="Describe the scene or enter keyframes:&#10;0: forest, sunny morning&#10;30: ancient ruins, sunset&#10;90: cyberpunk city, neon nights" style="height: 100px;">beautiful model half alien and half cyborg, human face, long dark hair style H.G. Giger</textarea>
+                    
+                    <!-- Collapsible Visual Keyframe Builder -->
+                    <div class="collapsible-header" onclick="toggleCollapsible('keyframe-builder-section', this)" style="margin-top: 8px; border: 1px solid rgba(255,255,255,0.08); padding: 8px 12px; border-radius: 6px; background: rgba(255,255,255,0.02);">
+                        <span style="font-size: 12px; font-weight: 600; color: var(--accent-primary);">🛠 Visual Keyframe Builder</span>
+                        <span class="collapsible-toggle-icon collapsed"></span>
+                    </div>
+                    <div id="keyframe-builder-section" class="collapsible-content collapsed" style="padding: 10px 0 0 0; margin-top: 4px; border-left: none;">
+                        <div style="background: rgba(0,0,0,0.25); border: 1px solid var(--border-color); border-radius: 6px; padding: 12px; display: flex; flex-direction: column; gap: 8px;">
+                            <div class="form-group row" style="margin-bottom: 0;">
+                                <div>
+                                    <label>Frame</label>
+                                    <input type="number" id="builder-frame" value="0" min="0" style="padding: 6px 8px;">
+                                </div>
+                                <div style="display: flex; align-items: flex-end;">
+                                    <button type="button" class="btn-randomize" onclick="addBuilderKeyframe()" style="width: 100%; margin-top: 0; padding: 8px; font-weight: 600; border-color: var(--accent-primary); color: var(--accent-primary);">+ Add Keyframe</button>
+                                </div>
+                            </div>
+                            <div>
+                                <label>Prompt at Frame</label>
+                                <textarea id="builder-prompt" placeholder="e.g. green forest, morning sun" style="min-height: 45px; padding: 6px 8px; font-size: 12px;"></textarea>
+                            </div>
+                            
+                            <div style="margin-top: 6px;">
+                                <label>Active Keyframes</label>
+                                <div id="builder-list" style="max-height: 120px; overflow-y: auto; background: rgba(0,0,0,0.3); border: 1px solid var(--border-color); border-radius: 4px; padding: 6px; display: flex; flex-direction: column; gap: 4px; font-size: 11px; font-family: monospace;">
+                                    <div style="color: var(--text-muted); text-align: center; padding: 4px;">No keyframes added yet</div>
+                                </div>
+                            </div>
+                            
+                            <div style="display: flex; gap: 8px; margin-top: 6px;">
+                                <button type="button" class="btn-randomize" onclick="applyBuilderKeyframes()" style="flex: 1; margin-top: 0; padding: 8px; background: rgba(0, 240, 255, 0.1); border-color: var(--accent-primary); color: #fff;">Apply to Prompt</button>
+                                <button type="button" class="btn-randomize" onclick="clearBuilderKeyframes()" style="margin-top: 0; padding: 8px; border-color: var(--error-color); color: var(--error-color);">Clear</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="negative">Negative Prompt</label>
+                    <textarea id="negative" name="negative" placeholder="Things to avoid...">text, watermark, blurry, low quality, bad anatomy, deformed, muted colors, washed out, desaturated</textarea>
+                </div>
+
+                <!-- Collapsible Model Config -->
+                <div class="collapsible-header" onclick="toggleCollapsible('model-config', this)">
+                    <span style="font-size: 13px; font-weight: 600; color: #fff;">Hardware & Model Config</span>
+                    <span class="collapsible-toggle-icon"></span>
+                </div>
+                <div id="model-config" class="collapsible-content">
+                    <div class="form-group">
+                        <label for="model_select">SD Checkpoint (Quick Select)</label>
+                        <select id="model_select" style="margin-bottom: 8px;">
+                            <option value="">Loading checkpoints...</option>
+                        </select>
+                        <label for="model">Checkpoint Path (Custom / Absolute)</label>
+                        <input type="text" id="model" name="model" value="{{ default_model }}">
+                    </div>
+                    <div class="form-group row">
+                        <div>
+                            <label for="lora_name">LoRA Model</label>
+                            <select id="lora_name" name="lora_name">
+                                <option value="None">None</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="lora_scale">LoRA Scale</label>
+                            <input type="number" id="lora_scale" name="lora_scale" step="0.05" value="0.8">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div>
+                            <label for="device">Device</label>
+                            <select id="device" name="device">
+                                <option value="cpu" {% if default_device == 'cpu' %}selected{% endif %}>CPU</option>
+                                <option value="cuda" {% if default_device == 'cuda' %}selected{% endif %}>CUDA (Nvidia)</option>
+                                <option value="mps" {% if default_device == 'mps' %}selected{% endif %}>MPS (Apple Silicon)</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="seed">Seed</label>
+                            <input type="number" id="seed" name="seed" placeholder="Random">
+                            <button type="button" class="btn-randomize" onclick="randomizeSeed()">Randomize</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Collapsible Settings -->
+                <div class="collapsible-header" onclick="toggleCollapsible('motion-config', this)">
+                    <span style="font-size: 13px; font-weight: 600; color: #fff;">Outpainting & Motion Settings</span>
+                    <span class="collapsible-toggle-icon"></span>
+                </div>
+                <div id="motion-config" class="collapsible-content">
+                    <div class="form-group row">
+                        <div>
+                            <label for="width">Width (px)</label>
+                            <input type="number" id="width" name="width" value="384">
+                        </div>
+                        <div>
+                            <label for="height">Height (px)</label>
+                            <input type="number" id="height" name="height" value="512">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div>
+                            <label for="shift">Shift Speed (px)</label>
+                            <input type="number" id="shift" name="shift" value="4">
+                        </div>
+                        <div>
+                            <label for="frames">Total Frames</label>
+                            <input type="number" id="frames" name="frames" value="90">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div>
+                            <label for="blur_width">Blur Width (px)</label>
+                            <input type="number" id="blur_width" name="blur_width" value="8">
+                        </div>
+                        <div>
+                            <label for="blur_radius">Blur Radius (px)</label>
+                            <input type="number" id="blur_radius" name="blur_radius" value="8">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="checkbox-container">
+                            <input type="checkbox" id="keep_original" name="keep_original" value="true" checked>
+                            <label for="keep_original" class="checkbox-label">Keep original image as Frame 0000</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Collapsible Diffusion settings -->
+                <div class="collapsible-header" onclick="toggleCollapsible('diffusion-config', this)">
+                    <span style="font-size: 13px; font-weight: 600; color: #fff;">Diffusion Parameters</span>
+                    <span class="collapsible-toggle-icon"></span>
+                </div>
+                <div id="diffusion-config" class="collapsible-content">
+                    <div class="form-group row">
+                        <div>
+                            <label for="steps">Inference Steps</label>
+                            <input type="number" id="steps" name="steps" value="25">
+                        </div>
+                        <div>
+                            <label for="guidance">CFG Guidance Scale</label>
+                            <input type="number" id="guidance" name="guidance" step="0.1" value="7.0">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="strength">Denoise / Strength</label>
+                        <input type="number" id="strength" name="strength" step="0.01" value="0.38">
+                    </div>
+                </div>
+
+                <!-- Collapsible Compilation settings -->
+                <div class="collapsible-header" onclick="toggleCollapsible('compilation-config', this)">
+                    <span style="font-size: 13px; font-weight: 600; color: #fff;">Output Video Parameters</span>
+                    <span class="collapsible-toggle-icon"></span>
+                </div>
+                <div id="compilation-config" class="collapsible-content">
+                    <div class="form-group row">
+                        <div>
+                            <label for="fps">Video FPS</label>
+                            <input type="number" id="fps" name="fps" value="30">
+                        </div>
+                        <div>
+                            <label for="scale">Scale Multiplier</label>
+                            <input type="number" id="scale" name="scale" step="0.1" value="2.0">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="sharpen">Sharpen Amount</label>
+                        <input type="number" id="sharpen" name="sharpen" step="0.1" value="1.2">
+                    </div>
+                </div>
+
+                <div class="action-button-container">
+                    <button type="submit" class="btn-generate" id="btn-start">
+                        <span>✦</span> Generate Video
+                    </button>
+                    <button type="button" class="btn-new-gen" id="btn-new-gen" onclick="startNewGeneration()">
+                        <span>⊕</span> New Generation
+                    </button>
+                    <button type="button" class="btn-update-params" id="btn-update-params" onclick="updateActiveParams()">
+                        Update Parameters
+                    </button>
+                    <button type="button" class="btn-cancel" id="btn-cancel" onclick="cancelActiveRun()">
+                        Cancel Generation
+                    </button>
+                </div>
+
+            </form>
+        </div>
+
+        <!-- Main Workspace -->
+        <div class="workspace">
+            
+            <div class="tabs-header">
+                <button class="tab-btn active" onclick="switchTab('live-preview')">Live Preview</button>
+                <button class="tab-btn" onclick="switchTab('video-player')">Completed Video</button>
+                <button class="tab-btn" onclick="switchTab('runs-history'); loadHistory()">Runs History</button>
+            </div>
+
+            <!-- Tab 1: Live Preview -->
+            <div id="live-preview" class="tab-content active">
+                           <!-- Progress Details -->
+                <div class="glass-panel progress-card">
+                    <div class="progress-bar-container">
+                        <div class="progress-bar-fill" id="progress-bar-fill"></div>
+                    </div>
+                    <div class="progress-stats">
+                        <span class="progress-status-text" id="progress-status-text">Status: Idle</span>
+                        <span id="progress-frames-text">Frame: 0 / 0</span>
+                    </div>
+                </div>
+                <div class="preview-grid">
+                    <!-- Frame Image -->
+                    <div class="visual-preview glass-panel">
+                        <div class="preview-placeholder" id="preview-placeholder">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
+                                <circle cx="8.5" cy="8.5" r="1.5"/>
+                                <polyline points="21 15 16 10 5 21"/>
+                            </svg>
+                            <p>Generate a video to see live frames here</p>
+                        </div>
+                        <img id="live-frame" src="" style="display: none;" alt="Live Frame">
+
+                        <!-- Step and Frame Progress Display -->
+                        <div id="step-overlay" style="display: none; margin-top: 16px; background: rgba(8, 8, 15, 0.85); padding: 8px 14px; border-radius: 8px; border: 1px solid var(--accent-primary); color: #fff; font-family: 'Outfit', sans-serif; font-size: 13px; z-index: 10; box-shadow: var(--shadow-glow); backdrop-filter: blur(8px); width: 100%; max-width: 280px; text-align: left;">
+                            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
+                                <span style="display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: var(--success-color); box-shadow: 0 0 8px var(--success-color);"></span>
+                                <span style="font-weight: 600; letter-spacing: 0.5px;">ACTIVE GENERATION</span>
+                            </div>
+                            <div style="font-family: monospace; color: var(--text-muted); font-size: 12px; display: flex; flex-direction: column; gap: 2px;">
+                                <div>Frame: <span id="overlay-current-frame" style="color: #fff; font-weight: bold;">0</span> / <span id="overlay-total-frames">0</span></div>
+                                <div>Step: <span id="overlay-current-step" style="color: var(--accent-primary); font-weight: bold;">0</span> / <span id="overlay-total-steps">0</span></div>
+                            </div>
+                        </div>
+ 
+                    </div>
+
+
+                    <!-- Logs console -->
+                    <div class="glass-panel" style="display: flex; flex-direction: column;">
+                        <h4 style="margin-bottom: 12px; font-family: 'Outfit', sans-serif; font-size: 14px; font-weight: 600;">System Logs</h4>
+                        <div class="console-logs" id="console-logs">
+                            <div>Ready to start. Choose settings and click 'Generate Video'.</div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Frame Timeline Inspector -->
+                <div class="glass-panel" id="timeline-card" style="margin-top: 20px; display: none;">
+                    <h4 style="margin-bottom: 12px; font-family: 'Outfit', sans-serif; font-size: 15px; font-weight: 600; display: flex; align-items: center; gap: 8px;">
+                        
+                    </h4>
+                    <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 16px;">
+                        <span>🎞</span> Frame Timeline Inspector &nbsp;&nbsp;&nbsp;&nbsp;
+                        Click a thumbnail to inspect it, or click 'Rollback' to delete it and all subsequent frames to resume with new parameters.
+                    </p>
+                    <div id="timeline-scroll" style="display: flex; gap: 12px; overflow-x: auto; padding-bottom: 8px; scroll-behavior: smooth;">
+                        <!-- Timeline items injected dynamically -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab 2: Completed Video -->
+            <div id="video-player" class="tab-content">
+                <div class="glass-panel video-container">
+                    <div class="preview-placeholder" id="video-placeholder">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width: 48px; height: 48px; margin-bottom: 12px; color: var(--border-color);">
+                            <polygon points="23 7 16 12 23 17 23 7"/>
+                            <rect x="1" y="5" width="15" height="14" rx="2" ry="2"/>
+                        </svg>
+                        <p>No compiled video available yet.</p>
+                    </div>
+                    <video id="output-video" controls style="display: none;"></video>
+                    <a id="download-link" href="#" download style="text-decoration: none; display: none;">
+                        <button class="btn-download">⬇ Download MP4 Video</button>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Tab 3: History -->
+            <div id="runs-history" class="tab-content">
+                <div class="glass-panel history-table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Timestamp</th>
+                                <th>Run ID</th>
+                                <th>Prompt</th>
+                                <th>Progress</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="history-tbody">
+                            <tr>
+                                <td colspan="6" style="text-align: center; color: var(--text-muted);">No runs history loaded.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <script>
+        let currentRunId = null;
+        let statusPollInterval = null;
+        let logsPollInterval = null;
+        let logOffset = 0;
+
+        // Drag and Drop Zone
+        const uploadZone = document.getElementById('upload-zone');
+        const uploadInput = document.getElementById('input_image_file');
+        const previewContainer = document.getElementById('image-preview-container');
+        const previewImg = document.getElementById('image-preview');
+        const removePreviewBtn = document.getElementById('btn-remove-preview');
+
+        uploadZone.addEventListener('click', () => uploadInput.click());
+
+        uploadZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadZone.style.borderColor = 'var(--accent-primary)';
+            uploadZone.style.background = 'rgba(0, 240, 255, 0.05)';
+        });
+
+        uploadZone.addEventListener('dragleave', () => {
+            uploadZone.style.borderColor = 'var(--border-color)';
+            uploadZone.style.background = 'rgba(255, 255, 255, 0.01)';
+        });
+
+        uploadZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadZone.style.borderColor = 'var(--border-color)';
+            uploadZone.style.background = 'rgba(255, 255, 255, 0.01)';
+            
+            if (e.dataTransfer.files.length > 0) {
+                uploadInput.files = e.dataTransfer.files;
+                showImagePreview(e.dataTransfer.files[0]);
+            }
+        });
+
+        uploadInput.addEventListener('change', () => {
+            if (uploadInput.files.length > 0) {
+                showImagePreview(uploadInput.files[0]);
+            }
+        });
+
+        removePreviewBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            uploadInput.value = '';
+            previewImg.src = '';
+            previewContainer.style.display = 'none';
+        });
+
+        function showImagePreview(file) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                previewImg.src = e.target.result;
+                previewContainer.style.display = 'block';
+            };
+            reader.readAsDataURL(file);
+        }
+
+        // Randomize seed
+        function randomizeSeed() {
+            document.getElementById('seed').value = Math.floor(Math.random() * 1000000);
+        }
+
+        // Collapsible sections
+        function toggleCollapsible(id, headerEl) {
+            const content = document.getElementById(id);
+            const toggleIcon = headerEl.querySelector('.collapsible-toggle-icon');
+            
+            content.classList.toggle('collapsed');
+            toggleIcon.classList.toggle('collapsed');
+        }
+
+        // Switch tabs
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+
+            // Find matching button
+            const activeBtn = Array.from(document.querySelectorAll('.tab-btn')).find(btn => {
+                return btn.getAttribute('onclick').includes(tabId);
+            });
+            if (activeBtn) activeBtn.classList.add('active');
+            
+            document.getElementById(tabId).classList.add('active');
+        }
+
+        // Form submission
+        const genForm = document.getElementById('gen-form');
+        genForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            // Validation
+            const fileInput = document.getElementById('input_image_file');
+            const pathInput = document.getElementById('input_image_path').value;
+            if (fileInput.files.length === 0 && !pathInput.trim()) {
+                alert("Please upload an image file or specify a local image path!");
+                return;
+            }
+
+            // Setup UI states
+            document.getElementById('btn-start').disabled = true;
+            document.getElementById('btn-start').innerHTML = '<span class="pulse-loader"></span> Initializing...';
+            document.getElementById('btn-cancel').style.display = 'block';
+            document.getElementById('btn-update-params').style.display = 'flex';
+            document.getElementById('btn-new-gen').style.display = 'flex';
+            
+            // Reset logs
+            const logsContainer = document.getElementById('console-logs');
+            logsContainer.innerHTML = '<div>[System] Launching new outpainting task...</div>';
+            logOffset = 0;
+
+            // Reset live preview
+            document.getElementById('preview-placeholder').style.display = 'flex';
+            document.getElementById('live-frame').style.display = 'none';
+            document.getElementById('live-frame').src = '';
+
+            // Reset video
+            document.getElementById('video-placeholder').style.display = 'flex';
+            document.getElementById('output-video').style.display = 'none';
+            document.getElementById('download-link').style.display = 'none';
+
+            // Gather Form Data
+            const formData = new FormData(genForm);
+            
+            // Add seed if random is checked
+            const seedVal = document.getElementById('seed').value;
+            if (!seedVal) {
+                formData.set('seed', Math.floor(Date.now() / 1000));
+            }
+            
+            // Add checkbox explicitly
+            formData.set('keep_original', document.getElementById('keep_original').checked ? 'true' : 'false');
+
+            try {
+                const response = await fetch('/api/start', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    currentRunId = result.run_id;
+                    appendLogLine(`[System] Task created successfully with Run ID: ${currentRunId}`, 'info');
+                    switchTab('live-preview');
+                    startMonitoring(currentRunId);
+                } else {
+                    alert("Failed to start run: " + result.error);
+                    resetUI();
+                }
+            } catch (err) {
+                console.error(err);
+                alert("Network error. Failed to communicate with Flask server.");
+                resetUI();
+            }
+        });
+
+        function appendLogLine(text, style = '') {
+            const logsContainer = document.getElementById('console-logs');
+            const div = document.createElement('div');
+            if (style) div.className = `log-${style}`;
+            div.textContent = text;
+            logsContainer.appendChild(div);
+            logsContainer.scrollTop = logsContainer.scrollHeight;
+        }
+
+        // Monitoring
+        function startMonitoring(runId) {
+            // Clear any existing intervals
+            clearInterval(statusPollInterval);
+            clearInterval(logsPollInterval);
+
+            // Poll status
+            statusPollInterval = setInterval(() => pollStatus(runId), 1500);
+            
+            // Poll logs
+            logsPollInterval = setInterval(() => pollLogs(runId), 1500);
+        }
+
+        async function pollStatus(runId) {
+            try {
+                const res = await fetch(`/api/status/${runId}`);
+                const data = await res.json();
+                
+                if (!data.success) {
+                    clearInterval(statusPollInterval);
+                    return null;
+                }
+
+                // Update progress bar
+                const current = data.current_frame;
+                const total = data.total_frames;
+                const percent = total > 0 ? (current / (total - 1)) * 100 : 0;
+                
+                document.getElementById('progress-bar-fill').style.width = `${percent}%`;
+                document.getElementById('progress-frames-text').textContent = `Frame: ${current} / ${total - 1}`;
+                document.getElementById('progress-status-text').innerHTML = `Status: <span style="color: var(--accent-primary); text-transform: uppercase; font-weight: bold;">${data.status}</span>`;
+
+                // Sync UI buttons if we detect it is running
+                if (data.status === 'running' || data.status === 'pending') {
+                    document.getElementById('btn-start').disabled = true;
+                    document.getElementById('btn-start').innerHTML = '<span class="pulse-loader"></span> Running...';
+                    document.getElementById('btn-cancel').style.display = 'block';
+                    document.getElementById('btn-update-params').style.display = 'flex';
+                    document.getElementById('btn-new-gen').style.display = 'flex';
+                }
+
+                // Update step overlay on preview image
+                const stepOverlay = document.getElementById('step-overlay');
+                if (data.status) {
+                    stepOverlay.style.display = 'block';
+                    document.getElementById('overlay-current-frame').textContent = current;
+                    document.getElementById('overlay-total-frames').textContent = total > 0 ? total - 1 : 0;
+                    document.getElementById('overlay-current-step').textContent = data.current_step || 0;
+                    document.getElementById('overlay-total-steps').textContent = data.total_steps || 0;
+                    
+                    // Dynamically update status text and dot color in the badge
+                    const badgeText = stepOverlay.querySelector('span[style*="letter-spacing"]');
+                    const badgeDot = stepOverlay.querySelector('span[style*="border-radius"]');
+                    if (data.status === 'running' || data.status === 'pending') {
+                        badgeText.textContent = 'ACTIVE GENERATION';
+                        badgeDot.style.background = 'var(--success-color)';
+                        badgeDot.style.boxShadow = '0 0 8px var(--success-color)';
+                    } else {
+                        badgeText.textContent = `GENERATION ${data.status.toUpperCase()}`;
+                        if (data.status === 'success') {
+                            badgeDot.style.background = 'var(--success-color)';
+                            badgeDot.style.boxShadow = '0 0 8px var(--success-color)';
+                        } else {
+                            badgeDot.style.background = 'var(--error-color)';
+                            badgeDot.style.boxShadow = '0 0 8px var(--error-color)';
+                        }
+                    }
+                } else {
+                    stepOverlay.style.display = 'none';
+                }
+
+                // Update live frame image
+                if (data.last_image) {
+                    const img = document.getElementById('live-frame');
+                    img.src = `${data.last_image}?t=${Date.now()}`; // Prevent browser cache
+                    img.style.display = 'block';
+                    document.getElementById('preview-placeholder').style.display = 'none';
+                }
+
+                // Update frame timeline inspector
+                if (data.generated_images) {
+                    updateTimeline(data.generated_images);
+                }
+
+                // Check termination conditions
+                if (data.status === 'success') {
+                    handleSuccess(data.video_path);
+                } else if (data.status === 'failed') {
+                    handleFailure(data.error);
+                } else if (data.status === 'cancelled') {
+                    handleCancellation();
+                }
+
+                return data;
+
+            } catch (err) {
+                console.error("Error polling status: ", err);
+                return null;
+            }
+        }
+
+        async function pollLogs(runId) {
+            try {
+                const res = await fetch(`/api/logs/${runId}?offset=${logOffset}`);
+                const data = await res.json();
+                
+                if (data.success && data.logs.length > 0) {
+                    data.logs.forEach(log => {
+                        let style = '';
+                        if (log.includes('ERROR:')) style = 'error';
+                        else if (log.includes('SUCCESS!') || log.includes('saved.')) style = 'success';
+                        else if (log.includes('[*]')) style = 'info';
+                        appendLogLine(log, style);
+                    });
+                    logOffset = data.next_offset;
+                }
+            } catch (err) {
+                console.error("Error polling logs: ", err);
+            }
+        }
+
+        async function cancelActiveRun() {
+            if (!currentRunId) return;
+            if (!confirm("Are you sure you want to cancel the generation?")) return;
+
+            appendLogLine(`[System] Requesting cancellation for run ${currentRunId}...`, 'error');
+            try {
+                await fetch(`/api/cancel/${currentRunId}`, { method: 'POST' });
+            } catch (err) {
+                console.error(err);
+            }
+        }
+
+        function handleSuccess(videoPath) {
+            clearInterval(statusPollInterval);
+            clearInterval(logsPollInterval);
+            resetUI();
+            
+            appendLogLine(`[System] Finished outpainting successfully! Video compiled.`, 'success');
+            
+            // Set video player src
+            const video = document.getElementById('output-video');
+            video.src = videoPath;
+            video.style.display = 'block';
+            document.getElementById('video-placeholder').style.display = 'none';
+
+            // Set download button
+            const download = document.getElementById('download-link');
+            download.href = videoPath;
+            download.style.display = 'inline-block';
+
+            // Automatically switch to video player tab
+            setTimeout(() => {
+                switchTab('video-player');
+            }, 1000);
+        }
+
+        function handleFailure(errorMsg) {
+            clearInterval(statusPollInterval);
+            clearInterval(logsPollInterval);
+            resetUI();
+            
+            appendLogLine(`[System] FAILED: ${errorMsg}`, 'error');
+            alert(`Generation failed: ${errorMsg}`);
+        }
+
+        function handleCancellation() {
+            clearInterval(statusPollInterval);
+            clearInterval(logsPollInterval);
+            resetUI();
+            appendLogLine(`[System] Run was cancelled.`, 'error');
+        }
+
+        function resetUI() {
+            document.getElementById('btn-start').disabled = false;
+            document.getElementById('btn-start').innerHTML = '<span>✦</span> Generate Video';
+            document.getElementById('btn-cancel').style.display = 'none';
+            document.getElementById('btn-update-params').style.display = 'none';
+            document.getElementById('btn-new-gen').style.display = currentRunId ? 'flex' : 'none';
+        }
+
+        function startNewGeneration() {
+            // Stop any active monitoring pollers
+            clearInterval(statusPollInterval);
+            clearInterval(logsPollInterval);
+            
+            // Clear active run reference
+            currentRunId = null;
+            
+            // Reset UI
+            resetUI();
+            
+            // Clear live preview images and placeholders
+            document.getElementById('preview-placeholder').style.display = 'flex';
+            document.getElementById('live-frame').style.display = 'none';
+            document.getElementById('live-frame').src = '';
+            
+            // Clear step overlays
+            document.getElementById('step-overlay').style.display = 'none';
+            
+            // Clear progress text & bar
+            document.getElementById('progress-bar-fill').style.width = '0%';
+            document.getElementById('progress-frames-text').textContent = 'Frame: 0 / 0';
+            document.getElementById('progress-status-text').innerHTML = 'Status: Idle';
+            
+            // Clear logs
+            const logsContainer = document.getElementById('console-logs');
+            logsContainer.innerHTML = '<div>Ready to start. Choose settings and click \'Generate Video\'.</div>';
+            
+            // Hide new generation button explicitly
+            document.getElementById('btn-new-gen').style.display = 'none';
+
+            // Clear timeline inspector
+            document.getElementById('timeline-card').style.display = 'none';
+            document.getElementById('timeline-scroll').innerHTML = '';
+            
+            appendLogLine('[System] Cleared active run. Ready for a new generation.', 'info');
+        }
+
+        // --- Visual Keyframe Builder JS ---
+        let builderKeyframes = [];
+
+        function addBuilderKeyframe() {
+            const frameInput = document.getElementById('builder-frame');
+            const promptInput = document.getElementById('builder-prompt');
+            const frameVal = parseInt(frameInput.value);
+            const promptVal = promptInput.value.trim();
+            
+            if (isNaN(frameVal) || frameVal < 0) {
+                alert("Please enter a valid frame number!");
+                return;
+            }
+            if (!promptVal) {
+                alert("Please enter a prompt text for this keyframe!");
+                return;
+            }
+            
+            // Check if keyframe for this frame already exists
+            const existingIndex = builderKeyframes.findIndex(kf => kf.frame === frameVal);
+            if (existingIndex !== -1) {
+                builderKeyframes[existingIndex].prompt = promptVal;
+            } else {
+                builderKeyframes.push({ frame: frameVal, prompt: promptVal });
+            }
+            
+            // Sort by frame
+            builderKeyframes.sort((a, b) => a.frame - b.frame);
+            
+            // Reset prompt input and suggest next frame (+30 frames)
+            promptInput.value = '';
+            frameInput.value = frameVal + 30;
+            
+            renderBuilderList();
+        }
+
+        function removeBuilderKeyframe(frameVal) {
+            builderKeyframes = builderKeyframes.filter(kf => kf.frame !== frameVal);
+            renderBuilderList();
+        }
+
+        function clearBuilderKeyframes() {
+            if (confirm("Clear all keyframes in the builder?")) {
+                builderKeyframes = [];
+                renderBuilderList();
+            }
+        }
+
+        function renderBuilderList() {
+            const listContainer = document.getElementById('builder-list');
+            if (builderKeyframes.length === 0) {
+                listContainer.innerHTML = '<div style="color: var(--text-muted); text-align: center; padding: 4px;">No keyframes added yet</div>';
+                return;
+            }
+            
+            listContainer.innerHTML = '';
+            builderKeyframes.forEach(kf => {
+                const row = document.createElement('div');
+                row.style.display = 'flex';
+                row.style.justifyContent = 'space-between';
+                row.style.alignItems = 'center';
+                row.style.padding = '4px 6px';
+                row.style.background = 'rgba(255,255,255,0.02)';
+                row.style.borderRadius = '4px';
+                row.style.border = '1px solid rgba(255,255,255,0.04)';
+                
+                const textSpan = document.createElement('span');
+                textSpan.style.overflow = 'hidden';
+                textSpan.style.textOverflow = 'ellipsis';
+                textSpan.style.whiteSpace = 'nowrap';
+                textSpan.style.maxWidth = '180px';
+                textSpan.innerHTML = `<strong style="color: var(--accent-primary);">${kf.frame}:</strong> ${kf.prompt}`;
+                
+                const delBtn = document.createElement('span');
+                delBtn.textContent = '×';
+                delBtn.style.color = 'var(--error-color)';
+                delBtn.style.cursor = 'pointer';
+                delBtn.style.fontWeight = 'bold';
+                delBtn.style.fontSize = '14px';
+                delBtn.style.padding = '0 4px';
+                delBtn.onclick = () => removeBuilderKeyframe(kf.frame);
+                
+                row.appendChild(textSpan);
+                row.appendChild(delBtn);
+                listContainer.appendChild(row);
+            });
+        }
+
+        function applyBuilderKeyframes() {
+            if (builderKeyframes.length === 0) {
+                alert("Add some keyframes to the list first!");
+                return;
+            }
+            
+            const promptTextarea = document.getElementById('prompt');
+            const lines = builderKeyframes.map(kf => `${kf.frame}: ${kf.prompt}`);
+            promptTextarea.value = lines.join('\n');
+            
+            // Trigger input/change events to auto-save to localStorage
+            promptTextarea.dispatchEvent(new Event('input'));
+        }
+
+        function parsePromptToBuilder() {
+            const promptVal = document.getElementById('prompt').value;
+            const keyframes = [];
+            const lines = promptVal.split('\n');
+            for (let line of lines) {
+                line = line.trim();
+                if (!line) continue;
+                const parts = line.split(':', 2);
+                if (parts.length === 2) {
+                    const frameNum = parseInt(parts[0].trim());
+                    const promptText = parts[1].trim();
+                    if (!isNaN(frameNum) && frameNum >= 0 && promptText) {
+                        keyframes.push({ frame: frameNum, prompt: promptText });
+                    }
+                }
+            }
+            
+            if (keyframes.length > 0) {
+                builderKeyframes = keyframes.sort((a, b) => a.frame - b.frame);
+                renderBuilderList();
+            }
+        }
+
+        function updateTimeline(generatedImages) {
+            const card = document.getElementById('timeline-card');
+            const container = document.getElementById('timeline-scroll');
+            
+            if (!generatedImages || generatedImages.length === 0) {
+                card.style.display = 'none';
+                container.innerHTML = '';
+                return;
+            }
+            
+            card.style.display = 'block';
+            container.innerHTML = '';
+            
+            generatedImages.forEach(img => {
+                const item = document.createElement('div');
+                item.style.flex = '0 0 100px';
+                item.style.display = 'flex';
+                item.style.flexDirection = 'column';
+                item.style.alignItems = 'center';
+                item.style.background = 'rgba(255,255,255,0.02)';
+                item.style.border = '1px solid var(--border-color)';
+                item.style.borderRadius = '6px';
+                item.style.padding = '8px';
+                item.style.textAlign = 'center';
+                item.style.gap = '6px';
+                item.style.position = 'relative';
+                
+                // Thumbnail
+                const thumb = document.createElement('img');
+                thumb.src = `/${img.path}?t=${Date.now()}`;
+                thumb.style.width = '80px';
+                thumb.style.height = '100px';
+                thumb.style.objectFit = 'cover';
+                thumb.style.borderRadius = '4px';
+                thumb.style.cursor = 'pointer';
+                thumb.onclick = () => {
+                    // Preview clicked frame in the viewer
+                    const mainImg = document.getElementById('live-frame');
+                    mainImg.src = thumb.src;
+                    mainImg.style.display = 'block';
+                    document.getElementById('preview-placeholder').style.display = 'none';
+                };
+                
+                // Text
+                const text = document.createElement('div');
+                text.textContent = `Frame #${img.frame.toString().padStart(4, '0')}`;
+                text.style.fontSize = '11px';
+                text.style.fontFamily = 'monospace';
+                text.style.color = 'var(--text-muted)';
+                
+                // Rollback Button
+                const btn = document.createElement('button');
+                btn.textContent = 'Rollback';
+                btn.style.width = '100%';
+                btn.style.background = 'rgba(255, 51, 102, 0.1)';
+                btn.style.border = '1px solid rgba(255, 51, 102, 0.4)';
+                btn.style.color = 'var(--error-color)';
+                btn.style.fontSize = '10px';
+                btn.style.padding = '4px 0';
+                btn.style.borderRadius = '4px';
+                btn.style.cursor = 'pointer';
+                btn.style.transition = 'all var(--transition-speed)';
+                btn.onmouseover = () => {
+                    btn.style.background = 'var(--error-color)';
+                    btn.style.color = '#000';
+                };
+                btn.onmouseout = () => {
+                    btn.style.background = 'rgba(255, 51, 102, 0.1)';
+                    btn.style.color = 'var(--error-color)';
+                };
+                btn.onclick = () => rollbackToFrame(img.frame);
+                
+                item.appendChild(thumb);
+                item.appendChild(text);
+                item.appendChild(btn);
+                container.appendChild(item);
+            });
+        }
+
+        async function rollbackToFrame(frameIdx) {
+            if (!currentRunId) return;
+            
+            // Check status of current run first
+            try {
+                const resStatus = await fetch(`/api/status/${currentRunId}`);
+                const dataStatus = await resStatus.json();
+                if (dataStatus.success && (dataStatus.status === 'running' || dataStatus.status === 'pending')) {
+                    alert("Cannot rollback while generation is active. Please click 'Cancel Generation' first.");
+                    return;
+                }
+            } catch (e) {
+                console.error(e);
+            }
+
+            if (!confirm(`Are you sure you want to rollback to Frame #${frameIdx.toString().padStart(4, '0')}? This will delete this frame and all subsequent frames permanently.`)) {
+                return;
+            }
+            
+            appendLogLine(`[System] Requesting rollback to frame index ${frameIdx}...`, 'info');
+            
+            try {
+                const response = await fetch(`/api/delete_frames/${currentRunId}/${frameIdx}`, {
+                    method: 'POST'
+                });
+                const result = await response.json();
+                
+                if (result.success) {
+                    appendLogLine(`[System] Rolled back successfully to frame index ${result.new_last_completed}. Deleted ${result.deleted_count} frames.`, 'success');
+                    
+                    // Refresh status to update timeline and main view
+                    const data = await pollStatus(currentRunId);
+                    await pollLogs(currentRunId);
+                    
+                    if (data && data.params) {
+                        populateFormWithParams(data.params);
+                    }
+                } else {
+                    alert("Failed to rollback: " + result.error);
+                }
+            } catch (err) {
+                console.error(err);
+                alert("Network error. Failed to rollback.");
+            }
+        }
+
+        async function updateActiveParams() {
+            if (!currentRunId) return;
+            
+            const btn = document.getElementById('btn-update-params');
+            btn.disabled = true;
+            btn.innerHTML = 'Updating...';
+            
+            // Gather Form Data
+            const formData = new FormData(document.getElementById('gen-form'));
+            
+            try {
+                const response = await fetch(`/api/update/${currentRunId}`, {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    appendLogLine(`[System] Active parameters updated successfully!`, 'success');
+                    
+                    // Show visual feedback by changing button color and text
+                    btn.classList.add('updated');
+                    btn.innerHTML = '✓ Updated!';
+                    
+                    // Also flash the sidebar background briefly to indicate success
+                    const sidebar = document.querySelector('.sidebar');
+                    const origBg = sidebar.style.background;
+                    sidebar.style.transition = 'background 0.3s';
+                    sidebar.style.background = 'rgba(0, 255, 102, 0.15)';
+                    setTimeout(() => {
+                        sidebar.style.background = origBg;
+                    }, 500);
+                    
+                    // Revert button state after 2 seconds
+                    setTimeout(() => {
+                        btn.classList.remove('updated');
+                        btn.disabled = false;
+                        btn.innerHTML = 'Update Parameters';
+                    }, 2000);
+                } else {
+                    alert("Failed to update parameters: " + result.error);
+                    btn.disabled = false;
+                    btn.innerHTML = 'Update Parameters';
+                }
+            } catch (err) {
+                console.error(err);
+                alert("Failed to communicate with server to update parameters.");
+                btn.disabled = false;
+                btn.innerHTML = 'Update Parameters';
+            }
+        }
+
+        // Load History
+        async function loadHistory() {
+            const tbody = document.getElementById('history-tbody');
+            tbody.innerHTML = '<tr><td colspan="6" style="text-align: center; color: var(--text-muted);">Loading runs history...</td></tr>';
+
+            try {
+                const res = await fetch('/api/runs');
+                const data = await res.json();
+
+                if (data.success && data.runs.length > 0) {
+                    tbody.innerHTML = '';
+                    // Show newest first
+                    data.runs.reverse().forEach(run => {
+                        const tr = document.createElement('tr');
+                        
+                        let progressText = `${run.current_frame} / ${run.total_frames - 1}`;
+                        if (run.status === 'success') progressText = 'Complete';
+                        
+                        let resumeBtnHtml = '';
+                        if (run.status === 'incomplete' || run.status === 'failed' || run.status === 'cancelled') {
+                            resumeBtnHtml = `<button class="btn-resume-run" onclick="resumeRun('${run.run_id}')">Resume</button>`;
+                        }
+                        
+                        tr.innerHTML = `
+                            <td>${run.timestamp}</td>
+                            <td style="font-family: monospace; color: var(--accent-primary);">${run.run_id}</td>
+                            <td style="max-width: 250px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${run.prompt}</td>
+                            <td>${progressText}</td>
+                            <td><span class="status-badge status-${run.status}">${run.status}</span></td>
+                            <td>
+                                <button class="btn-view-run" onclick="viewHistoryRun('${run.run_id}')">View</button>
+                                ${resumeBtnHtml}
+                                <button class="btn-delete-run" onclick="deleteRun('${run.run_id}')">Delete</button>
+                            </td>
+                        `;
+                        tbody.appendChild(tr);
+                    });
+                } else {
+                    tbody.innerHTML = '<tr><td colspan="6" style="text-align: center; color: var(--text-muted);">No runs found.</td></tr>';
+                }
+            } catch (err) {
+                console.error(err);
+                tbody.innerHTML = '<tr><td colspan="6" style="text-align: center; color: var(--error-color);">Failed to load history.</td></tr>';
+            }
+        }
+
+        async function resumeRun(runId) {
+            // Setup UI states
+            document.getElementById('btn-start').disabled = true;
+            document.getElementById('btn-start').innerHTML = '<span class="pulse-loader"></span> Resuming...';
+            document.getElementById('btn-cancel').style.display = 'block';
+            document.getElementById('btn-update-params').style.display = 'flex';
+            
+            // Reset logs
+            document.getElementById('console-logs').innerHTML = '';
+            logOffset = 0;
+
+            // Reset live preview
+            document.getElementById('preview-placeholder').style.display = 'flex';
+            document.getElementById('live-frame').style.display = 'none';
+            document.getElementById('live-frame').src = '';
+
+            // Reset video
+            document.getElementById('video-placeholder').style.display = 'flex';
+            document.getElementById('output-video').style.display = 'none';
+            document.getElementById('download-link').style.display = 'none';
+
+            switchTab('live-preview');
+            appendLogLine(`[System] Requesting resume for run ID: ${runId}...`, 'info');
+
+            try {
+                const response = await fetch(`/api/resume/${runId}`, {
+                    method: 'POST'
+                });
+                const result = await response.json();
+                if (result.success) {
+                    currentRunId = runId;
+                    startMonitoring(runId);
+                } else {
+                    alert("Failed to resume run: " + result.error);
+                    resetUI();
+                }
+            } catch (err) {
+                console.error(err);
+                alert("Network error. Failed to resume run.");
+                resetUI();
+            }
+        }
+
+        async function deleteRun(runId) {
+            if (!confirm(`Are you sure you want to delete run ${runId} and all its generated frames?`)) return;
+
+            try {
+                const response = await fetch(`/api/delete/${runId}`, {
+                    method: 'POST'
+                });
+                const result = await response.json();
+                if (result.success) {
+                    loadHistory();
+                } else {
+                    alert("Failed to delete run: " + result.error);
+                }
+            } catch (err) {
+                console.error(err);
+                alert("Network error. Failed to delete run.");
+            }
+        }
+
+        async function viewHistoryRun(runId) {
+            currentRunId = runId;
+            switchTab('live-preview');
+            
+            // Reset logs
+            document.getElementById('console-logs').innerHTML = '';
+            logOffset = 0;
+
+            // Immediately poll once to update visual frames
+            const data = await pollStatus(runId);
+            await pollLogs(runId);
+
+            if (data && data.params) {
+                populateFormWithParams(data.params);
+            }
+
+            // Start monitoring since we need to track status and logs
+            startMonitoring(runId);
+        }
+
+        // Initialize default collapsible states
+        document.querySelectorAll('.collapsible-content').forEach(c => {
+            if (c.id !== 'motion-config') {
+                c.classList.add('collapsed');
+                const header = c.previousElementSibling;
+                const toggle = header.querySelector('.collapsible-toggle-icon');
+                if (toggle) toggle.classList.add('collapsed');
+            }
+        });
+
+        // --- Server-Side Draft Saving/Loading ---
+        let draftTimeout = null;
+        function saveDraftToServer() {
+            if (draftTimeout) clearTimeout(draftTimeout);
+            
+            draftTimeout = setTimeout(async () => {
+                const formData = new FormData(document.getElementById('gen-form'));
+                const data = {};
+                formData.forEach((value, key) => {
+                    const el = document.getElementById(key);
+                    if (el && el.type === 'checkbox') {
+                        data[key] = el.checked;
+                    } else {
+                        data[key] = value;
+                    }
+                });
+                
+                try {
+                    await fetch('/api/draft', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(data)
+                    });
+                } catch (err) {
+                    console.error("Error auto-saving draft to server:", err);
+                }
+            }, 500);
+        }
+
+        function setupAutoSave() {
+            const formElements = document.querySelectorAll('#gen-form input, #gen-form textarea, #gen-form select');
+            formElements.forEach(el => {
+                if (el.type === 'file') return;
+                el.addEventListener('input', saveDraftToServer);
+                el.addEventListener('change', saveDraftToServer);
+            });
+        }
+
+        async function loadDraftFromServer() {
+            try {
+                const res = await fetch('/api/draft');
+                const result = await res.json();
+                if (result.success && result.draft) {
+                    populateFormWithParams(result.draft, false);
+                }
+            } catch (err) {
+                console.error("Error loading draft from server:", err);
+            }
+        }
+
+        function populateFormWithParams(params, saveAfterPopulate = true) {
+            Object.keys(params).forEach(key => {
+                const el = document.getElementById(key);
+                if (el) {
+                    if (el.type === 'checkbox') {
+                        el.checked = params[key];
+                    } else {
+                        el.value = params[key];
+                    }
+                }
+            });
+            parsePromptToBuilder();
+            
+            if (saveAfterPopulate) {
+                saveDraftToServer();
+            }
+        }
+
+        // Setup dropdown bindings
+        const modelSelect = document.getElementById('model_select');
+        const modelInput = document.getElementById('model');
+        
+        modelSelect.addEventListener('change', () => {
+            if (modelSelect.value) {
+                modelInput.value = `/home/jack/Desktop/Comfy-UI/models/checkpoints/${modelSelect.value}`;
+                saveDraftToServer();
+            }
+        });
+
+        async function loadModelsAndLoras() {
+            try {
+                // Fetch models
+                const resModels = await fetch('/api/models');
+                const dataModels = await resModels.json();
+                if (dataModels.success && dataModels.models.length > 0) {
+                    modelSelect.innerHTML = '<option value="">-- Select Checkpoint --</option>';
+                    dataModels.models.forEach(model => {
+                        const opt = document.createElement('option');
+                        opt.value = model;
+                        opt.textContent = model;
+                        // Select default model if it matches
+                        if (modelInput.value && modelInput.value.endsWith('/' + model)) {
+                            opt.selected = true;
+                        }
+                        modelSelect.appendChild(opt);
+                    });
+                } else {
+                    modelSelect.innerHTML = '<option value="">No checkpoints found</option>';
+                }
+
+                // Fetch loras
+                const resLoras = await fetch('/api/loras');
+                const dataLoras = await resLoras.json();
+                const loraSelect = document.getElementById('lora_name');
+                if (dataLoras.success && dataLoras.loras.length > 0) {
+                    loraSelect.innerHTML = '';
+                    dataLoras.loras.forEach(lora => {
+                        const opt = document.createElement('option');
+                        opt.value = lora;
+                        opt.textContent = lora;
+                        loraSelect.appendChild(opt);
+                    });
+                    
+                }
+            } catch (err) {
+                console.error("Error loading models/loras: ", err);
+            }
+        }
+
+        // Initialize page sequence (Load models first, then load the draft from server, then attach change listeners)
+        async function initPage() {
+            await loadModelsAndLoras();
+            await loadDraftFromServer();
+            setupAutoSave();
+            
+            // Keep Visual Builder in sync with manual prompt text changes
+            document.getElementById('prompt').addEventListener('input', parsePromptToBuilder);
+        }
+        initPage();
+    </script>
+</body>
+</html>

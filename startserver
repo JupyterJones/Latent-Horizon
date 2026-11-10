@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+# LatentMovement Studio Launcher
+# Runs with standard Python 3 or local venv
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+cd "${SCRIPT_DIR}"
+
+if [ -f "./venv/bin/python" ]; then
+    PYTHON_EXEC="./venv/bin/python"
+elif command -v python3 >/dev/null 2>&1; then
+    PYTHON_EXEC="python3"
+else
+    PYTHON_EXEC="python"
+fi
+
+echo "=================================================="
+echo " 🎬 Starting LatentMovement Server"
+echo " 🐍 Python: ${PYTHON_EXEC}"
+echo " 📁 Dir   : ${SCRIPT_DIR}"
+echo "=================================================="
+
+exec "${PYTHON_EXEC}" latent_movement_server.py "$@"

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OUTPAINTINGHTML</title>
+</head>
+<body>
+<style>
+/* 💎 Glassmorphism Dark Theme */
+body {
+  background: #0f172a;
+  color: #f8fafc;
+  font-family: system-ui, -apple-system, sans-serif;
+  padding: 30px;
+}
+.card, .container, .document, main, article {
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+h1, h2, h3 {
+  background: linear-gradient(90deg, #6366f1, #a855f7, #ec4899);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+button {
+  background: #6366f1;
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+button:hover { background: #4f46e5; transform: translateY(-2px); }
+</style>
+<div class="document">
+    <h1 id="heading">Understanding Outpainting: A Comprehensive Guide</h1>
+    <p>Welcome to the Latent Horizon Landscape outpainting engine! If you have never used outpainting before, this guide will walk you through what outpainting is, how this application automates the process, how to tweak key parameters for the best results, and how to use advanced features like prompt traveling and inpaint repair.</p>
+    <hr>
+
+    <h2 id="section-1">What is Outpainting?</h2>
+    <p>In generative AI, there are two primary ways to modify or extend images:</p>
+    <ul>
+      <li>You highlight a region *inside* the existing boundaries of an image (e.g., replacing a person's hat) and generate new content only within that masked area.</li>
+      <li>You extend the image *beyond* its original borders. It allows you to create infinitely wide panoramas, tall vertical towers, or continuous zoom-out sequences by generating new, seamless content that aligns with the existing picture.</li>
+    </ul>
+
+    <hr>
+
+    <h2 id="section-2">How the Automation Works (Under the Hood)</h2>
+    <p>When you click **Generate Video**, the engine automatically runs a loop of **shift, pad, blend, and generate** for every frame:</p>
+    <div class="steps">
+      <h3>Step A: The Shift</h3>
+      <p>Suppose you are outpainting to the **right**.</p>
+      <ol>
+        <li>The engine takes your current frame (e.g., `768x512` pixels) and shifts it to the left by `16` pixels (your `shift` parameter).</li>
+        <li>This leaves a `16`-pixel-wide empty gap on the right side of the canvas.</li>
+      </ol>
+
+      <h3>Step B: Stretched Padding & Blurring</h3>
+      <p>If you pass an image with a black gap to Stable Diffusion, it will try to generate content that transitions into solid black, creating harsh borders. To prevent this:</p>
+      <ol>
+        <li>The engine crops the last column of pixels from the original image and stretches/resizes it to fill the new empty gap.</li>
+        <li>It then applies a **Gaussian Blur** to the outer edge of this stretched area to break up sharp lines and tell the AI: *"This blurred area contains no real structure; regenerate it."*</li>
+      </ol>
+
+      <h3>Step C: Feathered Masking</h3>
+      <p>To ensure a smooth transition between the original image and the newly generated section, the engine creates a feathered gradient mask:</p>
+      <ul>
+        <li>* **White area (original image)**: Retained perfectly.</li>
+        <li>* **Black/Grey area (blurred gap)**: Blended with the new Stable Diffusion generation.</li>
+      </ul>
+
+      <h3>Step D: Image-to-Image Generation</h3>
+      <p>The blended canvas is sent to Stable Diffusion's Image-to-Image (`img2img`) pipeline.</p>
+      <ol>
+        <li>Using a low-to-medium **Denoising Strength**, the AI leaves the clear, unblurred portion of the image alone.</li>
+        <li>It completely rebuilds and fills in the blurred/stretched gap, creating new details (like continuing a mountain range, forest, or cloud pattern) that seamlessly align with the original scene and match your prompt.</li>
+      </ol>
+
+      <h3>Step E: Crop & Repeat</h3>
+      <p>The generated image is cropped back to the default `768x512` frame size. This frame is saved and becomes the input for the next cycle.</p>
+    </div>
+</body>
+</html>
