@@ -1,0 +1,56 @@
+# Models & Checkpoints
+models
+*.safetensors
+*.ckpt
+*.pt
+*.bin
+
+# Generation Outputs & Uploads
+novel_images_*
+run7/
+runs/
+upload7/
+uploads/
+EXPERIMENTAL/
+*.mp4
+
+# Python & Virtual Environments
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.venv/
+env/
+*.log
+*.sqlite3
+
+# Node / Tauri / Build Artifacts
+node_modules/
+src-tauri/target/
+dist/
+build/
+*.AppImage
+
+# OS & Editor Files
+*.transcript*
+*transcript*
+.DS_Store
+*.swp
+*~
+.vscode/
+.idea/
+
+# Added by fix_git.py
+*.db
+*.sqlite
+.env
+.env.*
+secrets.json
+config.json
+*.pem
+*.key
+*.crt
+*.bak
+*.old
+*.tmp
+Thumbs.db
